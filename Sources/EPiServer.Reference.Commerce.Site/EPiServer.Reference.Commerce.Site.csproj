@@ -429,6 +429,7 @@
     <Compile Include="Features\Market\Services\MarketContentLoader.cs" />
     <Compile Include="Features\Navigation\ViewModels\FooterViewModel.cs" />
     <Compile Include="Features\Payment\Controllers\PaymentController.cs" />
+    <Compile Include="Features\Payment\Controllers\PayPalPaymentController.cs" />
     <Compile Include="Features\Payment\Controllers\SecureAcceptanceController.cs" />
     <Compile Include="Features\Payment\PaymentMethods\AuthorizePaymentMethod.cs" />
     <Compile Include="Features\Payment\PaymentMethods\CashOnDeliveryPaymentMethod.cs" />
@@ -840,6 +841,8 @@
     <Content Include="Views\Shared\_CyberSourceCreditCard.cshtml" />
     <Content Include="Views\Shared\_CyberSourceCreditCardCheckout.cshtml" />
     <Content Include="Views\Shared\_CyberSourceCreditCardConfirmation.cshtml" />
+    <Content Include="Views\Shared\_CyberSourcePayPal.cshtml" />
+    <Content Include="Views\Shared\_CyberSourcePayPalConfirmation.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
