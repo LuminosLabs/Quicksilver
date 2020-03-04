@@ -166,7 +166,8 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Checkout.Services
                 Payment = new Mock<FakePaymentMethod>("PaymentMethod").Object
             };
 
-            var result = _subject.PlaceOrder(cart, modelState, viewModel);
+            string redirectUrl;
+            var result = _subject.PlaceOrder(cart, modelState, out redirectUrl);
 
             Assert.Equal(purchaseOrderMock, result);
             Assert.Equal(0, modelState.Count(x => x.Value.Errors.Count > 0));
@@ -197,7 +198,8 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Checkout.Services
                 Payment = new Mock<FakePaymentMethod>("PaymentMethod").Object
             };
 
-            _subject.PlaceOrder(cart, modelState, viewModel);
+            string redirectUrl;
+            var result = _subject.PlaceOrder(cart, modelState, out redirectUrl);
 
             _orderRepositoryMock.Verify(x => x.Delete(cart.OrderLink), Times.Once);
         }
@@ -236,7 +238,8 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Checkout.Services
                 Payment = new Mock<FakePaymentMethod>("PaymentMethod").Object
             };
 
-            var result = _subject.PlaceOrder(cart, modelState, viewModel);
+            string redirectUrl;
+            var result = _subject.PlaceOrder(cart, modelState, out redirectUrl);
 
             Assert.Null(result);
             Assert.Equal(1, modelState.Count(x => x.Value.Errors.Count > 0));
@@ -268,7 +271,8 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Checkout.Services
                 Payment = paymentMethodMock.Object
             };
 
-            var result = _subject.PlaceOrder(cart, modelState, viewModel);
+            string redirectUrl;
+            var result = _subject.PlaceOrder(cart, modelState, out redirectUrl);
 
             Assert.Null(result);
             Assert.Equal(1, modelState.Count(x => x.Value.Errors.Count > 0));
@@ -302,7 +306,8 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Checkout.Services
             _paymentProcessorMock.Setup(x => x.ProcessPayment(It.IsAny<IOrderGroup>(), It.IsAny<IPayment>(), It.IsAny<IShipment>()))
                 .Returns((IOrderGroup orderGroup, IPayment payment, IShipment shipment) => PaymentProcessingResult.CreateUnsuccessfulResult("Payment was failed."));
 
-            var result = _subject.PlaceOrder(cart, modelState, viewModel);
+            string redirectUrl;
+            var result = _subject.PlaceOrder(cart, modelState, out redirectUrl);
 
             Assert.Null(result);
             Assert.Equal(1, modelState.Count(x => x.Value.Errors.Count > 0));

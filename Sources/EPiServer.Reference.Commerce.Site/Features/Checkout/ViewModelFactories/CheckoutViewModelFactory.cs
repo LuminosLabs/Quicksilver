@@ -116,7 +116,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
             return addresses;
         }
 
-        private CheckoutViewModel CreateEmptyCheckoutViewModel(CheckoutPage currentPage)
+        public CheckoutViewModel CreateEmptyCheckoutViewModel(CheckoutPage currentPage)
         {
             return new CheckoutViewModel
             {

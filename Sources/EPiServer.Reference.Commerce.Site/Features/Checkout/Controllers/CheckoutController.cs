@@ -15,9 +15,15 @@ using EPiServer.Web.Mvc;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
+using EPiServer.ServiceLocation;
+using LL.EpiserverCyberSourceConnector.Payments;
+using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
+using Newtonsoft.Json;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 {
@@ -34,6 +40,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         private ICart _cart;
         private readonly CheckoutService _checkoutService;
         private readonly IDatabaseMode _databaseMode;
+        private readonly SecureAcceptanceSecurity _secureAcceptanceSecurity;
 
         public CheckoutController(
             ICurrencyService currencyService,
@@ -45,7 +52,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             IRecommendationService recommendationService,
             CheckoutService checkoutService,
             OrderValidationService orderValidationService,
-            IDatabaseMode databaseMode)
+            IDatabaseMode databaseMode, 
+            SecureAcceptanceSecurity secureAcceptanceSecurity)
         {
             _currencyService = currencyService;
             _controllerExceptionHandler = controllerExceptionHandler;
@@ -57,6 +65,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             _checkoutService = checkoutService;
             _orderValidationService = orderValidationService;
             _databaseMode = databaseMode;
+            _secureAcceptanceSecurity = secureAcceptanceSecurity;
         }
 
         [HttpGet]
@@ -156,6 +165,91 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         }
 
         [HttpPost]
+        [AllowDBWrite]
+        public ActionResult AddPaymentOnCart(CheckoutViewModel viewModel, IPaymentMethod paymentMethod)
+        {
+            if (CartIsNullOrEmpty())
+            {
+                return Redirect(Url.ContentUrl(ContentReference.StartPage));
+            }
+
+            viewModel.Payment = paymentMethod;
+            viewModel.IsAuthenticated = User.Identity.IsAuthenticated;
+            _checkoutService.CheckoutAddressHandling.UpdateUserAddresses(viewModel);
+
+            if (!_checkoutService.ValidateOrder(ModelState, viewModel, _orderValidationService.ValidateOrder(Cart)))
+            {
+                return View(viewModel);
+            }
+
+            if (!paymentMethod.ValidateData())
+            {
+                return View(viewModel);
+            }
+
+            _checkoutService.UpdateShippingAddresses(Cart, viewModel);
+            _checkoutService.CreateAndAddPaymentToCart(Cart, viewModel);
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        [AllowDBWrite]
+        public ActionResult PlaceOrder()
+        {
+            var payment = Cart.GetFirstForm().Payments.FirstOrDefault();
+
+            var contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
+            var startPage = contentRepository.Get<StartPage>(ContentReference.StartPage);
+            var checkoutPage = contentRepository.Get<CheckoutPage>(startPage.CheckoutPage);
+            var viewModel = _checkoutViewModelFactory.CreateEmptyCheckoutViewModel(checkoutPage);
+
+            if (payment != null)
+            {
+                if (!IsSignatureChecked())
+                {
+                    ModelState.AddModelError("", "Secure Acceptance Signature check fail. Please try again.");
+
+                    return View(viewModel);
+                }
+
+                var token = Request.Form["payment_token"];
+                var requestId = Request.Form["transaction_id"];
+                payment.Properties[CommerceMetaFields.CyberSourceTokenPropertyName] = token;
+                payment.Properties[CommerceMetaFields.CyberSourceRequestIdPropertyName] = requestId;
+
+                var decisionInformation = new DecisionManagerInformation
+                {
+                    CustomerIpAddress = "10.1.27.63",
+                    IsHttpBrowserCookiesAccepted = true,
+                    CustomerId = Guid.NewGuid().ToString()
+                };
+
+                var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);
+                payment.Properties[CommerceMetaFields.DecisionManagerInformationPropertyName] = decisionManagerJson;
+            }
+
+            string redirectUrl;
+            var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, out redirectUrl);
+
+            if (!string.IsNullOrEmpty(redirectUrl))
+            {
+                return Redirect(redirectUrl);
+            }
+
+            if (purchaseOrder == null)
+            {
+                return View(viewModel);
+            }
+
+            // commented order confirmation email sending because SMTP server is not configured
+            var confirmationSentSuccessfully = true; //_checkoutService.SendConfirmation(viewModel, purchaseOrder);
+            var billingEmail = Cart.GetFirstShipment().ShippingAddress.Email;
+
+            return Redirect(_checkoutService.BuildRedirectionUrl(purchaseOrder, billingEmail, confirmationSentSuccessfully));
+        }
+
+        [HttpPost]
         public ActionResult Purchase(CheckoutViewModel viewModel, IPaymentMethod paymentMethod)
         {
             if (CartIsNullOrEmpty())
@@ -185,7 +279,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 
             _checkoutService.CreateAndAddPaymentToCart(Cart, viewModel);
 
-            var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, viewModel);
+            string redirectUrl;
+            var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, out redirectUrl);
             if (!string.IsNullOrEmpty(viewModel.RedirectUrl))
             {
                 return Redirect(viewModel.RedirectUrl);
@@ -196,9 +291,11 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
                 return View(viewModel);
             }
 
-            var confirmationSentSuccessfully = _checkoutService.SendConfirmation(viewModel, purchaseOrder);
+            // commented order confirmation email sending because SMTP server is not configured
+            var confirmationSentSuccessfully = true; //_checkoutService.SendConfirmation(viewModel, purchaseOrder);
+            var billingEmail = Cart.GetFirstShipment().ShippingAddress.Email;
 
-            return Redirect(_checkoutService.BuildRedirectionUrl(viewModel, purchaseOrder, confirmationSentSuccessfully));
+            return Redirect(_checkoutService.BuildRedirectionUrl(purchaseOrder, billingEmail, confirmationSentSuccessfully));
         }
 
         public ActionResult OnPurchaseException(ExceptionContext filterContext)
@@ -236,6 +333,19 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         private bool CartIsNullOrEmpty()
         {
             return Cart == null || !Cart.GetAllLineItems().Any();
+        }
+
+        private bool IsSignatureChecked()
+        {
+            var parameters = new Dictionary<string, string>();
+            foreach (var key in Request.Form.AllKeys)
+            {
+                parameters.Add(key, Request.Params[key]);
+            }
+            var computedSignature = _secureAcceptanceSecurity.Sign(parameters);
+            var requestSignatureValue = Request.Form["signature"];
+
+            return computedSignature == requestSignatureValue;
         }
     }
 }

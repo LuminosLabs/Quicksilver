@@ -50,7 +50,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             IContentRepository contentRepository,
             CustomerContextFacade customerContext,
             LocalizationService localizationService,
-            IMailService mailService, 
+            IMailService mailService,
             ICartService cartService,
             IDatabaseMode databaseMode)
         {
@@ -108,10 +108,13 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             var payment = viewModel.Payment.CreatePayment(total.Amount, cart);
             cart.AddPayment(payment, _orderGroupFactory);
             payment.BillingAddress = _addressBookService.ConvertToAddress(viewModel.BillingAddress, cart);
+
+            _orderRepository.Save(cart);
         }
 
-        public virtual IPurchaseOrder PlaceOrder(ICart cart, ModelStateDictionary modelState, CheckoutViewModel checkoutViewModel)
+        public virtual IPurchaseOrder PlaceOrder(ICart cart, ModelStateDictionary modelState, out string redirectUrl)
         {
+            redirectUrl = "";
             try
             {
                 var paymentProcessingResults = cart.ProcessPayments(_paymentProcessor, _orderGroupCalculator).ToList();
@@ -125,7 +128,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
                 var redirectPayment = paymentProcessingResults.FirstOrDefault(r => !string.IsNullOrEmpty(r.RedirectUrl));
                 if (redirectPayment != null)
                 {
-                    checkoutViewModel.RedirectUrl = redirectPayment.RedirectUrl;
+                    redirectUrl = redirectPayment.RedirectUrl;
                     return null;
                 }
 
@@ -144,7 +147,16 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 
                 if (!IsInReadOnlyMode())
                 {
-                    var validation = checkoutViewModel.IsAuthenticated ? AuthenticatedPurchaseValidation : (PurchaseValidation)AnonymousPurchaseValidation;
+                    PurchaseValidation validation;
+
+                    if (Security.PrincipalInfo.CurrentPrincipal.Identity.IsAuthenticated)
+                    {
+                        validation = AuthenticatedPurchaseValidation;
+                    }
+                    else
+                    {
+                        validation = AnonymousPurchaseValidation;
+                    }
                     if (!validation.ValidateOrderOperation(modelState, _cartService.RequestInventory(cart)))
                     {
                         return null;
@@ -187,7 +199,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             return true;
         }
 
-        public virtual string BuildRedirectionUrl(CheckoutViewModel checkoutViewModel, IPurchaseOrder purchaseOrder, bool confirmationSentSuccessfully)
+        public virtual string BuildRedirectionUrl(IPurchaseOrder purchaseOrder, string billingEmail, bool confirmationSentSuccessfully)
         {
             var queryCollection = new NameValueCollection
             {
@@ -197,12 +209,13 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 
             if (!confirmationSentSuccessfully)
             {
-                queryCollection.Add("notificationMessage", string.Format(_localizationService.GetString("/OrderConfirmationMail/ErrorMessages/SmtpFailure"), checkoutViewModel.BillingAddress.Email));
+                queryCollection.Add("notificationMessage", string.Format(_localizationService.GetString("/OrderConfirmationMail/ErrorMessages/SmtpFailure"), billingEmail));
             }
 
-            var confirmationPage = _contentRepository.GetChildren<OrderConfirmationPage>(checkoutViewModel.CurrentPage.ContentLink).First();
+            var startPage = _contentRepository.Get<StartPage>(ContentReference.StartPage);
+            var confirmationPage = _contentRepository.GetChildren<OrderConfirmationPage>(startPage.CheckoutPage).First();
 
-            return new UrlBuilder(confirmationPage.LinkURL) {QueryCollection = queryCollection}.ToString();
+            return new UrlBuilder(confirmationPage.LinkURL) { QueryCollection = queryCollection }.ToString();
         }
 
         public virtual bool ValidateOrder(ModelStateDictionary modelState, CheckoutViewModel viewModel, IDictionary<ILineItem, IList<ValidationIssue>> validationMessages)
