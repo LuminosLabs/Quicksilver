@@ -351,6 +351,7 @@
   <ItemGroup>
     <Content Include="lang\Quicksilver_SV.xml" />
     <Content Include="lang\Display_en.xml" />
+    <Content Include="Scripts\cyberSource-utilities.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -367,6 +368,7 @@
     <Content Include="Scripts\js\Search.js" />
     <Content Include="Scripts\js\Warehouse.js" />
     <Content Include="Scripts\mustache.min.js" />
+    <Content Include="Scripts\secure-acceptance-sample.js" />
     <Content Include="Styles\font-awesome\.gitignore" />
     <Content Include="Styles\font-awesome\css\font-awesome.css" />
     <Content Include="Styles\font-awesome\css\font-awesome.min.css" />
@@ -427,6 +429,7 @@
     <Compile Include="Features\Market\Services\MarketContentLoader.cs" />
     <Compile Include="Features\Navigation\ViewModels\FooterViewModel.cs" />
     <Compile Include="Features\Payment\Controllers\PaymentController.cs" />
+    <Compile Include="Features\Payment\Controllers\SecureAcceptanceController.cs" />
     <Compile Include="Features\Payment\PaymentMethods\AuthorizePaymentMethod.cs" />
     <Compile Include="Features\Payment\PaymentMethods\CashOnDeliveryPaymentMethod.cs" />
     <Compile Include="Features\Payment\PaymentMethods\CreditCardPaymentMethodBase.cs" />
@@ -834,6 +837,9 @@
     <Content Include="Views\ErrorHandling\InternalError.cshtml" />
     <Content Include="Views\ErrorHandling\Forbidden.cshtml" />
     <Content Include="Views\ErrorHandling\OtherHttpStatusCode.cshtml" />
+    <Content Include="Views\Shared\_CyberSourceCreditCard.cshtml" />
+    <Content Include="Views\Shared\_CyberSourceCreditCardCheckout.cshtml" />
+    <Content Include="Views\Shared\_CyberSourceCreditCardConfirmation.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

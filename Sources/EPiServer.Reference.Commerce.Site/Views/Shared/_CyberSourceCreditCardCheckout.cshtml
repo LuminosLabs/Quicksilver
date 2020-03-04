@@ -1,0 +1,109 @@
+﻿@using LL.EpiserverCyberSourceConnector.Payments.CreditCard
+
+<form action="https://testsecureacceptance.CyberSource.com/silent/pay" method="post" id="secure-acceptance-form"></form>
+
+<script>
+        @{
+            var cyberSourceConfiguration = new CreditCardConfiguration();
+            var accessKey = cyberSourceConfiguration.AccessKey;
+            var profileId = cyberSourceConfiguration.ProfileId;
+            var transactionType = cyberSourceConfiguration.SecureAcceptanceTransactionType;
+            var unsignedFields = cyberSourceConfiguration.UnsignedFields;
+            var signedFields = SecureAcceptanceHelper.GetSignedFieldsValue();
+            var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
+            var cyberSourceCreditCardSystemKeyword = cyberSourceConfiguration.PaymentMethodSystemName;
+        }
+
+        var form = document.querySelector("form.jsCheckoutForm");
+        form.onsubmit = function (event) {
+            if (isCyberSourcePaymentMethodSelected("@cyberSourceCreditCardSystemKeyword")) {
+                onFormSubmit(event);
+            }
+        };
+
+        var onFormSubmit = function(event) {
+            event.preventDefault();
+
+            var action = "@addPaymentOnCartEndpoint";
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', action, true);
+            xhr.send(formData);
+
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                        signFields();
+                    } else {
+                        console.log("fail");
+                    }
+                }
+            }
+        }
+
+        function signFields() {
+            var accessKey = "@accessKey";
+            var profileId = "@profileId";
+            var transactionType = "@transactionType";
+            var unsignedFieldNames = "@unsignedFields";
+            var signedFieldNames = "@signedFields";
+            //TODO: change this
+            var currency = "USD";
+            var locale = "en";
+
+            var amountValue = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent;
+            var firstName = document.getElementById("BillingAddress_FirstName").value;
+            var lastName = document.getElementById("BillingAddress_LastName").value;
+            var email = document.getElementById("BillingAddress_Email").value;
+            var addressLine1 = document.getElementById("BillingAddress_Line1").value;
+            var city = document.getElementById("BillingAddress_City").value;
+
+            // TODO: change this
+            // must send state code
+            var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
+            //var stateValue = stateField.options[stateField.selectedIndex].text;
+
+            // TODO: change this
+            // must send country code
+            var countryField = document.getElementById("country");
+            //var countryValue = countryField.options[countryField.selectedIndex].text;
+
+            var postalCode = document.getElementById("BillingAddress_PostalCode").value;
+
+            var cardType = "001"; //Visa
+            var cardNumber = document.getElementById("credit-card-number").value;
+            var cardExpireMonth = document.getElementById("credit-card-expiration-month").value;
+            var cardExpireYear = document.getElementById("credit-card-expiration-year").value;
+
+            var data = {
+                accessKey: accessKey,
+                profileId: profileId,
+                transactionType: transactionType,
+                unsignedFieldNames: unsignedFieldNames,
+                signedFieldNames: signedFieldNames,
+                transactionUuid: "@Guid.NewGuid().ToString()",
+                transactionDateTime: "@DateTime.Now.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss'Z'")",
+                currency: currency,
+                locale: locale,
+                amount: amountValue,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                addressLine1: addressLine1,
+                city: city,
+                state: "AL",
+                country: "US",
+                postalCode: postalCode,
+                cardType: cardType,
+                cardNumber: cardNumber,
+                cardExpireYear: cardExpireYear,
+                cardExpireMonth: cardExpireMonth,
+                signFieldsUrl: "/SecureAcceptance/SignFields",
+                secureAcceptanceFormId: "secure-acceptance-form"
+            };
+            sign(data);
+        }
+</script>
+
+<script src="~/Scripts/secure-acceptance-sample.js" type="text/javascript"></script>

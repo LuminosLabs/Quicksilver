@@ -1,0 +1,21 @@
+﻿@model LL.EpiserverCyberSourceConnector.Payments.CreditCard.CyberSourceCreditCardPaymentMethod
+
+@Html.HiddenFor(model => model.SystemKeyword)
+
+<div class="row">
+    <div class="form-group col-md-6">
+        <label for="credit-card-number">Credit Card Number </label>
+        <input class="form-control" maxlength="16" id="credit-card-number" type="text" name="credit-card-number" value="4111111111111111" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-md-6">
+        <label for="credit-card-expiration-month">Expiration Month</label>
+        <input class="form-control" maxlength="2" id="credit-card-expiration-month" type="text" name="credit-card-expiration-month" value="11" />
+    </div>
+    <div class="form-group col-md-6">
+        <label for="credit-card-expiration-year">Expiration Year</label>
+        <input class="form-control" maxlength="4" id="credit-card-expiration-year" type="text" name="credit-card-expiration-year" value="2022" />
+    </div>
+</div>
