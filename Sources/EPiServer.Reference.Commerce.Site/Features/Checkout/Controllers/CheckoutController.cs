@@ -281,9 +281,9 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 
             string redirectUrl;
             var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, out redirectUrl);
-            if (!string.IsNullOrEmpty(viewModel.RedirectUrl))
+            if (!string.IsNullOrEmpty(redirectUrl))
             {
-                return Redirect(viewModel.RedirectUrl);
+                return Redirect(redirectUrl);
             }
 
             if (purchaseOrder == null)
