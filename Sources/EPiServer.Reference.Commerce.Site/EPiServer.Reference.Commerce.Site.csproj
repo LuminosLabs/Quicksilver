@@ -370,6 +370,7 @@
     <Content Include="Scripts\js\Warehouse.js" />
     <Content Include="Scripts\mustache.min.js" />
     <Content Include="Scripts\secure-acceptance-sample.js" />
+    <Content Include="Styles\ApplePayStyling.css" />
     <Content Include="Styles\font-awesome\.gitignore" />
     <Content Include="Styles\font-awesome\css\font-awesome.css" />
     <Content Include="Styles\font-awesome\css\font-awesome.min.css" />
