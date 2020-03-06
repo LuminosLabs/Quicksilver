@@ -1,0 +1,47 @@
+﻿@using LL.EpiserverCyberSourceConnector.Payments.GooglePay
+
+<div id="container"></div>
+
+<script>
+    @{
+        var cyberSourceConfiguration = new GooglePayConfiguration();
+        var cyberSourceGooglePaySystemKeyword = cyberSourceConfiguration.PaymentMethodSystemName;
+    }
+</script>
+
+<script src="~/Scripts/google-pay-sample.js"></script>
+<script async
+        src="https://pay.google.com/gp/p/js/pay.js"
+        onload="onGooglePayLoaded()">
+</script>
+
+<script>
+
+    var form = document.querySelector("form.jsCheckoutForm");
+    form.onsubmit = function (event) {
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceGooglePaySystemKeyword")) {
+            event.preventDefault();
+        }
+    };
+
+    //change Place Order button in  google pay styling
+    jsChangePaymentList = document.getElementsByClassName("jsChangePayment");
+    for (var i = 0; i < jsChangePaymentList.length; i++) {
+        jsChangePaymentList[i].addEventListener("click", function (e) {
+            if (getGoogleIsReadyToPayRequest()) {
+                var paymentOptions = document.getElementsByClassName("jsChangePayment");
+                for (var i = 0; i < paymentOptions.length; i++) {
+                    if (paymentOptions.item(i).value === '@cyberSourceGooglePaySystemKeyword' &&
+                        paymentOptions.item(i).checked) {
+                        document.getElementById("placeOrder").style.visibility = 'hidden';
+                        document.getElementsByClassName("gpay-button")[0].style.visibility = 'visible';
+                        return;
+                    } else {
+                        document.getElementById("placeOrder").style.visibility = 'visible';
+                        document.getElementsByClassName("gpay-button")[0].style.visibility = 'hidden';
+                    }
+                }
+            }
+        });
+    }
+</script>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport.Templates
+namespace EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport
 {
     [Serializable]
     public class CustomerTemplate

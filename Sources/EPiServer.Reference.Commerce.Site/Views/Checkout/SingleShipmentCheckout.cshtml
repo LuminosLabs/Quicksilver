@@ -6,6 +6,13 @@
     }
 }
 
+<script>
+    @{
+        var purchaseEndpoint = Url.Action("PlaceOrder", "Checkout");
+    }
+    var purchaseEndpoint = '@purchaseEndpoint';
+</script>
+
 <div class="container-fluid" id="CheckoutView" data-url="@Url.Action("Index")">
 
     <div class="row section-box checkout jsCheckout">
@@ -108,12 +115,16 @@
         <div class="row section-box">
             <div class="col-xs-12">
                 @{ Html.RenderAction("OrderSummary"); }
-                <button type="submit" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
+                <div id="submit-area" class="pull-right">
+                    <button type="submit" id="placeOrder" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
-@Html.Partial("_CyberSourceCreditCardCheckout");
+@Html.Partial("_CyberSourceCreditCardCheckout")
+@Html.Partial("_CyberSourceGooglePayCheckout")
+@Html.Partial("_CyberSourceApplePayCheckout")
 
 <script src="~/Scripts/cyberSource-utilities.js"></script>

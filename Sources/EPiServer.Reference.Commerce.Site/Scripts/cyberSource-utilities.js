@@ -1,5 +1,20 @@
 ﻿window.onload = function () {
     setDefaultValues();
+
+    //hide apple pay option if not on apple devices
+    if (!window.canUseApplePay()) {
+        window.hidePaymentOption("CyberSourceApplePay");
+    }
+
+    if (!getGoogleIsReadyToPayRequest()) {
+        window.hidePaymentOption("CyberSourceGooglePay");
+    }
+
+    if (isCyberSourcePaymentMethodSelected("CyberSourceGooglePay")) {
+        document.getElementById("placeOrder").style.visibility = 'hidden';
+        document.getElementsByClassName("gpay-button")[0].style.visibility = 'visible';
+    }
+
 }
 
 function setDefaultValues() {
@@ -27,4 +42,18 @@ function isCyberSourcePaymentMethodSelected(paymentMethodSystemName) {
             return true;
     }
     return false;
+}
+
+function hidePaymentOption(paymentOptionValue) {
+    var paymentOptions = document.getElementsByClassName("jsChangePayment");
+    for (var i = 0; i < paymentOptions.length; i++) {
+        if (paymentOptions.item(i).value === paymentOptionValue) {
+            paymentOptions.item(i).parentNode.parentNode.style.display = "none";
+        }
+    }
+}
+
+function resubmitOriginalForm(url) {
+    form.action = url;
+    form.submit();
 }

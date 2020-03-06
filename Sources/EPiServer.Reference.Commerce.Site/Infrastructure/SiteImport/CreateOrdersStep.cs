@@ -3,7 +3,6 @@ using EPiServer.Commerce.Order;
 using EPiServer.Logging;
 using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
 using EPiServer.Reference.Commerce.Site.Features.Payment.PaymentMethods;
-using EPiServer.Reference.Commerce.Site.Infrastructure.SiteImport.Templates;
 using EPiServer.ServiceLocation;
 using Mediachase.BusinessFoundation.Data;
 using Mediachase.Commerce.Customers;

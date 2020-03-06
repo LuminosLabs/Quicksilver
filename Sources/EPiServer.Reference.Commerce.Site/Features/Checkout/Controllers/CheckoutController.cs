@@ -204,29 +204,11 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             var checkoutPage = contentRepository.Get<CheckoutPage>(startPage.CheckoutPage);
             var viewModel = _checkoutViewModelFactory.CreateEmptyCheckoutViewModel(checkoutPage);
 
-            if (payment != null)
+            if (!ConfigureCreditCardProperties(payment))
             {
-                if (!IsSignatureChecked())
-                {
-                    ModelState.AddModelError("", "Secure Acceptance Signature check fail. Please try again.");
+                ModelState.AddModelError("", "Secure Acceptance Signature check fail. Please try again.");
 
-                    return View(viewModel);
-                }
-
-                var token = Request.Form["payment_token"];
-                var requestId = Request.Form["transaction_id"];
-                payment.Properties[CommerceMetaFields.CyberSourceTokenPropertyName] = token;
-                payment.Properties[CommerceMetaFields.CyberSourceRequestIdPropertyName] = requestId;
-
-                var decisionInformation = new DecisionManagerInformation
-                {
-                    CustomerIpAddress = "10.1.27.63",
-                    IsHttpBrowserCookiesAccepted = true,
-                    CustomerId = Guid.NewGuid().ToString()
-                };
-
-                var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);
-                payment.Properties[CommerceMetaFields.DecisionManagerInformationPropertyName] = decisionManagerJson;
+                return View(viewModel);
             }
 
             string redirectUrl;
@@ -260,8 +242,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             viewModel.Payment = paymentMethod;
 
             viewModel.IsAuthenticated = User.Identity.IsAuthenticated;
-
-
 
             _checkoutService.CheckoutAddressHandling.UpdateUserAddresses(viewModel);
 
@@ -315,6 +295,34 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             _controllerExceptionHandler.HandleRequestValidationException(filterContext, "purchase", OnPurchaseException);
+        }
+
+        private bool ConfigureCreditCardProperties(IPayment payment)
+        {
+            if (payment != null && payment.PaymentMethodName == "CyberSourceCreditCard")
+            {
+                if (!IsSignatureChecked())
+                {
+                    return false;
+                }
+
+                var token = Request.Form["payment_token"];
+                var requestId = Request.Form["transaction_id"];
+                payment.Properties[CommerceMetaFields.CyberSourceTokenPropertyName] = token;
+                payment.Properties[CommerceMetaFields.CyberSourceRequestIdPropertyName] = requestId;
+
+                var decisionInformation = new DecisionManagerInformation
+                {
+                    CustomerIpAddress = "10.1.27.63",
+                    IsHttpBrowserCookiesAccepted = true,
+                    CustomerId = Guid.NewGuid().ToString()
+                };
+
+                var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);
+                payment.Properties[CommerceMetaFields.DecisionManagerInformationPropertyName] = decisionManagerJson;
+            }
+
+            return true;
         }
 
         private ViewResult View(CheckoutViewModel checkoutViewModel)

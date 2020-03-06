@@ -6,7 +6,7 @@ using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.Services;
 using LL.EpiserverCyberSourceConnector.Payments.PayPal;
 
-namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
+namespace EPiServer.Reference.Commerce.Site.Features.Payment.Controllers
 {
     public class PayPalPaymentController : Controller
     {
