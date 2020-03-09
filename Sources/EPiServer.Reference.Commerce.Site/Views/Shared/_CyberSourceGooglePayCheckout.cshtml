@@ -24,7 +24,10 @@
                         return;
                     } else {
                         document.getElementById("placeOrder").style.visibility = 'visible';
-                        document.getElementsByClassName("gpay-button")[0].style.visibility = 'hidden';
+                        var googlePayButton = document.getElementsByClassName("gpay-button");
+                        if (googlePayButton.length > 0) {
+                            googlePayButton[0].style.visibility = 'hidden';
+                        }
                     }
                 }
             }
