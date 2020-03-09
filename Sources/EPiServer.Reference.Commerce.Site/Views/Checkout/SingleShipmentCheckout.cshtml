@@ -1,4 +1,7 @@
-﻿@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
+﻿@using LL.EpiserverCyberSourceConnector.Payments.ApplePay
+@using LL.EpiserverCyberSourceConnector.Payments.CreditCard
+@using LL.EpiserverCyberSourceConnector.Payments.GooglePay
+@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
 @{
     if (Request.IsAjaxRequest())
     {
@@ -123,8 +126,43 @@
     </form>
 </div>
 
-@Html.Partial("_CyberSourceCreditCardCheckout")
-@Html.Partial("_CyberSourceGooglePayCheckout")
-@Html.Partial("_CyberSourceApplePayCheckout")
+@* CyberSource Connector code changes *@
+<script>
+    @{
+        var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
+
+        var applePayConfiguration = new ApplePayConfiguration();
+        var cyberSourceApplePaySystemKeyword = applePayConfiguration.PaymentMethodSystemName;
+
+        var creditCardConfiguration = new CreditCardConfiguration();
+        var cyberSourceCreditCardSystemKeyword = creditCardConfiguration.PaymentMethodSystemName;
+
+        var googlePayConfiguration = new GooglePayConfiguration();
+        var cyberSourceGooglePaySystemKeyword = googlePayConfiguration.PaymentMethodSystemName;
+    }
+
+    var addPaymentOnCartEndpoint = '@addPaymentOnCartEndpoint';
+
+
+    var form = document.querySelector("form.jsCheckoutForm");
+    form.onsubmit = function (event) {
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceApplePaySystemKeyword")) {
+            processApplePaySubmit(event);
+        }
+
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceCreditCardSystemKeyword")) {
+            processCreditCardSubmit(event);
+        }
+
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceGooglePaySystemKeyword")) {
+            event.preventDefault();
+        }
+    };
+</script>
 
 <script src="~/Scripts/cyberSource-utilities.js"></script>
+
+
+@Html.Partial("_CyberSourceCreditCardCheckout", creditCardConfiguration)
+@Html.Partial("_CyberSourceGooglePayCheckout", googlePayConfiguration)
+@Html.Partial("_CyberSourceApplePayCheckout")

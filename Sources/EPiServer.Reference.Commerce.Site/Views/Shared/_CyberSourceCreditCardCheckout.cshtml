@@ -1,30 +1,18 @@
-﻿@using LL.EpiserverCyberSourceConnector.Payments.CreditCard
+﻿@model LL.EpiserverCyberSourceConnector.Payments.CreditCard.ICreditCardConfiguration
+@using LL.EpiserverCyberSourceConnector.Payments.CreditCard
 
+@* Secure Acceptance form. This form will be submitted from front-end. In this way the Credit Card data will not hit the back-end. *@
 <form action="https://testsecureacceptance.CyberSource.com/silent/pay" method="post" id="secure-acceptance-form"></form>
 
 <script>
         @{
-            var cyberSourceConfiguration = new CreditCardConfiguration();
-            var accessKey = cyberSourceConfiguration.AccessKey;
-            var profileId = cyberSourceConfiguration.ProfileId;
-            var transactionType = cyberSourceConfiguration.SecureAcceptanceTransactionType;
-            var unsignedFields = cyberSourceConfiguration.UnsignedFields;
             var signedFields = SecureAcceptanceHelper.GetSignedFieldsValue();
-            var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
-            var cyberSourceCreditCardSystemKeyword = cyberSourceConfiguration.PaymentMethodSystemName;
         }
 
-        var form = document.querySelector("form.jsCheckoutForm");
-        form.onsubmit = function (event) {
-            if (isCyberSourcePaymentMethodSelected("@cyberSourceCreditCardSystemKeyword")) {
-                onFormSubmit(event);
-            }
-        };
-
-        var onFormSubmit = function(event) {
+        var processCreditCardSubmit = function(event) {
             event.preventDefault();
 
-            var action = "@addPaymentOnCartEndpoint";
+            var action = window.addPaymentOnCartEndpoint;
             var formData = new FormData(form);
             var xhr = new XMLHttpRequest();
 
@@ -36,20 +24,21 @@
                     if (this.status === 200) {
                         signFields();
                     } else {
-                        console.log("fail");
+                        console.log("sign fields error", this.response);
                     }
                 }
             }
         }
 
         function signFields() {
-            var accessKey = "@accessKey";
-            var profileId = "@profileId";
-            var transactionType = "@transactionType";
-            var unsignedFieldNames = "@unsignedFields";
+            var accessKey = "@Model.AccessKey";
+            var profileId = "@Model.ProfileId";
+            var transactionType = "@Model.SecureAcceptanceTransactionType";
+            var unsignedFieldNames = "@Model.UnsignedFields";
             var signedFieldNames = "@signedFields";
             //TODO: change this
             var currency = "USD";
+            //TODO: change this
             var locale = "en";
 
             var amountValue = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent;
@@ -60,17 +49,18 @@
             var city = document.getElementById("BillingAddress_City").value;
 
             // TODO: change this
-            // must send state code
+            // must send state code instead of state name
             var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
             //var stateValue = stateField.options[stateField.selectedIndex].text;
 
             // TODO: change this
-            // must send country code
+            // must send country code instead of country name
             var countryField = document.getElementById("country");
             //var countryValue = countryField.options[countryField.selectedIndex].text;
 
             var postalCode = document.getElementById("BillingAddress_PostalCode").value;
 
+            // TODO: get card type
             var cardType = "001"; //Visa
             var cardNumber = document.getElementById("credit-card-number").value;
             var cardExpireMonth = document.getElementById("credit-card-expiration-month").value;

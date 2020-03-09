@@ -1,30 +1,12 @@
-﻿@using LL.EpiserverCyberSourceConnector.Payments.ApplePay
-
-<link rel="stylesheet" type="text/css" href="~/Styles/ApplePayStyling.css">
+﻿<link rel="stylesheet" type="text/css" href="~/Styles/ApplePayStyling.css">
 
 <script>
-    @{
-        var cyberSourceConfiguration = new ApplePayConfiguration();
-        var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
-        var cyberSourceApplePaySystemKeyword = cyberSourceConfiguration.PaymentMethodSystemName;
-    }
-
-    var paymentSelectors = document.querySelectorAll(".payment-methods .radio .jsChangePayment");
-
-    var form = document.querySelector("form.jsCheckoutForm");
-    form.onsubmit = function (event) {
-        if (isCyberSourcePaymentMethodSelected("@cyberSourceApplePaySystemKeyword")) {
-            processApplePaySubmit(event);
-        }
-    };
-
     function processApplePaySubmit(event) {
         event.preventDefault();
         placeApplePayOrder();
     }
 
     function placeApplePayOrder() {
-        var totalPrice = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent.trim();
 
         var request = {
             countryCode: 'US',
@@ -33,7 +15,7 @@
             merchantCapabilities: ['supports3DS'],
             total: {
                 label: 'Luminos Labs',
-                amount: totalPrice,
+                amount: '10.00',
                 type: 'final'
             },
             lineItems: [
@@ -59,7 +41,7 @@
         var session = new window.ApplePaySession(1, request);
 
         // onvalidatemerchant: A callback function that is automatically called when the payment sheet is displayed.
-        session.onvalidatemerchant = function(event) {
+        session.onvalidatemerchant = function (event) {
             var validationData = { ValidationUrl: event.validationURL };
             $.ajax({
                 url: '/ApplePayPayment/StartApplePaySession',
@@ -67,11 +49,10 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(validationData)
             }).then(function (merchantSession) {
-                    if (merchantSession !== false)
-                    {
-                        session.completeMerchantValidation(JSON.parse(merchantSession));
-                    }
-                },
+                if (merchantSession !== false) {
+                    session.completeMerchantValidation(JSON.parse(merchantSession));
+                }
+            },
                 function (error) {
                     console.log("Error in StartApplePaySession:");
                     console.log(error);
@@ -80,7 +61,7 @@
         }
 
         // Setup handler to receive the token when payment is authorized.
-        session.onpaymentauthorized = function(event) {
+        session.onpaymentauthorized = function (event) {
             addPaymentOnCart(event, session);
 
             //ApplePayPaymentAuthorizationResult object
@@ -129,7 +110,7 @@
     }
 
     function addPaymentOnCart(event, session) {
-        var action = "@addPaymentOnCartEndpoint";
+        var action = window.addPaymentOnCartEndpoint;
         var formData = new FormData(form);
         var xhr = new XMLHttpRequest();
 
@@ -153,15 +134,15 @@
                             'paymentCardType': paymentCardType
                         })
                     }).then(function (result) {
-                            if (result === true) {
-                                console.log("ProcessApplePayPayment successfully: " + result);
-                                // add logic to use signature
-                                window.resubmitOriginalForm(window.purchaseEndpoint);
-                            } else {
-                                console.log("ProcessApplePayPayment unsuccessfully: " + result);
-                            }
-                        },
-                        function(error) {
+                        if (result === true) {
+                            console.log("ProcessApplePayPayment successfully: " + result);
+                            // add logic to use signature
+                            window.resubmitOriginalForm(window.purchaseEndpoint);
+                        } else {
+                            console.log("ProcessApplePayPayment unsuccessfully: " + result);
+                        }
+                    },
+                        function (error) {
                             console.log("Error in ProcessApplePayPayment: " + JSON.stringify(error));
                             session.abort();
                         });
