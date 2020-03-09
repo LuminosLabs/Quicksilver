@@ -12,7 +12,10 @@
 
     if (isCyberSourcePaymentMethodSelected("CyberSourceGooglePay")) {
         document.getElementById("placeOrder").style.visibility = 'hidden';
-        document.getElementsByClassName("gpay-button")[0].style.visibility = 'visible';
+        var googlePayButton = document.getElementsByClassName("gpay-button");
+        if (googlePayButton.length > 0) {
+            googlePayButton[0].style.visibility = 'hidden';
+        }
     }
 
 }
