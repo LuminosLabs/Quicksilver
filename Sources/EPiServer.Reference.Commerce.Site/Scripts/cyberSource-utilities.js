@@ -60,3 +60,61 @@ function resubmitOriginalForm(url) {
     form.action = url;
     form.submit();
 }
+
+function getCardType(number) {
+
+    // number must not contain any whitespaces for the regex to work
+    number = number.replace(/\s/g, '');
+
+    // visa
+    var re = new RegExp("^4");
+    if (number.match(re) != null)
+        return "Visa";
+
+    // Mastercard
+    // Updated for Mastercard 2017 BINs expansion
+    if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number))
+        return "MasterCard";
+
+    // American Express
+    re = new RegExp("^3[47]");
+    if (number.match(re) != null)
+        return "Amex";
+
+    // Discover
+    re = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null)
+        return "Discover";
+
+    // Diners
+    re = new RegExp("^36");
+    if (number.match(re) != null)
+        return "Diners Club";
+
+    // Diners - Carte Blanche
+    re = new RegExp("^30[0-5]");
+    if (number.match(re) != null)
+        return "Carte Blanche";
+
+    // JCB
+    re = new RegExp("^35(2[89]|[3-8][0-9])");
+    if (number.match(re) != null)
+        return "JCB";
+
+    // Maestro UK
+    re = new RegExp("^(67(59|677[04]))");
+    if (number.match(re) != null)
+        return "Maestro UK Domestic";
+
+    // Maestro
+    re = new RegExp("^(5[06-9])|^(6[0-9])");
+    if (number.match(re) != null)
+        return "Maestro International";
+
+    //UATP
+    var re = new RegExp("^1");
+    if (number.match(re) != null)
+        return "UATP";
+
+    return "";
+}
