@@ -52,7 +52,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             IRecommendationService recommendationService,
             CheckoutService checkoutService,
             OrderValidationService orderValidationService,
-            IDatabaseMode databaseMode, 
+            IDatabaseMode databaseMode,
             SecureAcceptanceSecurity secureAcceptanceSecurity)
         {
             _currencyService = currencyService;
@@ -206,8 +206,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 
             if (!ConfigureCreditCardProperties(payment))
             {
-                ModelState.AddModelError("", "Secure Acceptance Signature check fail. Please try again.");
-
                 return View(viewModel);
             }
 
@@ -303,6 +301,16 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             {
                 if (!IsSignatureChecked())
                 {
+                    ModelState.AddModelError("Signature_Check", "Secure Acceptance Signature check fail. Please try again.");
+
+                    return false;
+                }
+
+                if (Request.Form["decision"] != "ACCEPT")
+                {
+                    ModelState.AddModelError("SecureAcceptanceResponse",
+                        $"Secure acceptance request failed with message: {Request.Form["message"]}. Invalid fields: {Request.Form["invalid_fields"]}");
+
                     return false;
                 }
 

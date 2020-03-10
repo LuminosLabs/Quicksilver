@@ -9,13 +9,6 @@
     }
 }
 
-<script>
-    @{
-        var purchaseEndpoint = Url.Action("PlaceOrder", "Checkout");
-    }
-    var purchaseEndpoint = '@purchaseEndpoint';
-</script>
-
 <div class="container-fluid" id="CheckoutView" data-url="@Url.Action("Index")">
 
     <div class="row section-box checkout jsCheckout">
@@ -91,7 +84,7 @@
             {
                 foreach (var error in item.Value.Errors)
                 {
-                    <p>@error.ErrorMessage</p>
+                    <pre style="max-width: 1000px;">@error.ErrorMessage</pre>
                 }
             }
         </div>
@@ -130,6 +123,7 @@
 <script>
     @{
         var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
+        var purchaseEndpoint = Url.Action("PlaceOrder", "Checkout");
 
         var applePayConfiguration = new ApplePayConfiguration();
         var cyberSourceApplePaySystemKeyword = applePayConfiguration.PaymentMethodSystemName;
@@ -142,7 +136,7 @@
     }
 
     var addPaymentOnCartEndpoint = '@addPaymentOnCartEndpoint';
-
+    var purchaseEndpoint = '@purchaseEndpoint';
 
     var form = document.querySelector("form.jsCheckoutForm");
     form.onsubmit = function (event) {
