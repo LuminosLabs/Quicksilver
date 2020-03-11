@@ -1,4 +1,5 @@
-﻿@model LL.EpiserverCyberSourceConnector.Payments.CreditCard.ICreditCardConfiguration
+﻿@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
+@using EPiServer.Reference.Commerce.Site.Features.AddressBook.Helpers
 @using LL.EpiserverCyberSourceConnector
 @using LL.EpiserverCyberSourceConnector.Payments.CreditCard
 
@@ -9,9 +10,13 @@
         @{
             var signedFields = SecureAcceptanceHelper.GetSignedFieldsValue();
             var cardTypeDictionary = CreditCardTypeStore.CardTypes;
+            var countryCodes = AddressHelper.CountryCodes;
+            var states = AddressHelper.StatesWithCode;
         }
 
         var cardTypes = @Html.Raw(Json.Encode(cardTypeDictionary));
+        var countryCodes = @Html.Raw(Json.Encode(countryCodes));
+        var states = @Html.Raw(Json.Encode(states));
 
         var processCreditCardSubmit = function(event) {
             event.preventDefault();
@@ -35,32 +40,32 @@
         }
 
         function signFields() {
-            var accessKey = "@Model.AccessKey";
-            var profileId = "@Model.ProfileId";
-            var transactionType = "@Model.SecureAcceptanceTransactionType";
-            var unsignedFieldNames = "@Model.UnsignedFields";
+            var accessKey = "@Model.CreditCardConfiguration.AccessKey";
+            var profileId = "@Model.CreditCardConfiguration.ProfileId";
+            var transactionType = "@Model.CreditCardConfiguration.SecureAcceptanceTransactionType";
+            var unsignedFieldNames = "@Model.CreditCardConfiguration.UnsignedFields";
             var signedFieldNames = "@signedFields";
             var currency = document.getElementById("CurrencyCode").value;
             var languageField = document.getElementById("Language");
             var locale = languageField.options[languageField.selectedIndex].value;
             var amountValue = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent;
-            var firstName = document.getElementById("BillingAddress_FirstName").value;
+
+            // TODO: change for logged in users
+            var firstName =document.getElementById("BillingAddress_FirstName").value;
             var lastName = document.getElementById("BillingAddress_LastName").value;
             var email = document.getElementById("BillingAddress_Email").value;
             var addressLine1 = document.getElementById("BillingAddress_Line1").value;
             var city = document.getElementById("BillingAddress_City").value;
-
-            // TODO: change this
-            // must send two letter state code instead of state name
-            var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
-            //var stateValue = stateField.options[stateField.selectedIndex].text;
-
-            // TODO: change this
-            // must send two letter country code instead of country name
-            var countryField = document.getElementById("BillingAddress_CountryCode");
-            //var countryValue = countryField.options[countryField.selectedIndex].value;
-
             var postalCode = document.getElementById("BillingAddress_PostalCode").value;
+
+            var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
+            var stateValue = stateField.options[stateField.selectedIndex].text;
+            var state = states[stateValue];
+
+            var countryField = document.getElementById("BillingAddress_CountryCode");
+            var countryValue = countryField.options[countryField.selectedIndex].value;
+            var country = countryCodes[countryValue];
+
             var cardNumber = document.getElementById("credit-card-number").value;
             var cardTypeName = getCardType(cardNumber);
             var cardType = cardTypes[cardTypeName];
@@ -83,8 +88,8 @@
                 email: email,
                 addressLine1: addressLine1,
                 city: city,
-                state: "AL",
-                country: "US",
+                state: state,
+                country: country,
                 postalCode: postalCode,
                 cardType: cardType,
                 cardNumber: cardNumber,

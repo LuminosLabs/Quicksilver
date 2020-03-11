@@ -8,7 +8,6 @@ using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Market.Services;
 using EPiServer.Reference.Commerce.Site.Features.Recommendations.Services;
-using EPiServer.Reference.Commerce.Site.Features.Shared.Models;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Services;
 using EPiServer.Reference.Commerce.Site.Infrastructure.Attributes;
 using EPiServer.Web.Mvc;
@@ -23,6 +22,7 @@ using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.ServiceLocation;
 using LL.EpiserverCyberSourceConnector.Payments;
 using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
@@ -295,13 +295,14 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             _controllerExceptionHandler.HandleRequestValidationException(filterContext, "purchase", OnPurchaseException);
         }
 
+        // CyberSource Connector added code
         private bool ConfigureCreditCardProperties(IPayment payment)
         {
             if (payment != null && payment.PaymentMethodName == "CyberSourceCreditCard")
             {
                 if (!IsSignatureChecked())
                 {
-                    ModelState.AddModelError("Signature_Check", "Secure Acceptance Signature check fail. Please try again.");
+                    ModelState.AddModelError("SignatureCheck", "Secure Acceptance Signature check fail. Please try again.");
 
                     return false;
                 }
@@ -321,9 +322,11 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
 
                 var decisionInformation = new DecisionManagerInformation
                 {
-                    CustomerIpAddress = "10.1.27.63",
+                    CustomerIpAddress = Request.UserHostAddress,
                     IsHttpBrowserCookiesAccepted = true,
-                    CustomerId = Guid.NewGuid().ToString()
+                    CustomerId = User.Identity.GetUserId(),
+                    HttpBrowserType = Request.UserAgent,
+                    HostName = Request.UserHostName
                 };
 
                 var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);

@@ -130,6 +130,7 @@
 
         var creditCardConfiguration = new CreditCardConfiguration();
         var cyberSourceCreditCardSystemKeyword = creditCardConfiguration.PaymentMethodSystemName;
+        Model.CreditCardConfiguration = creditCardConfiguration;
 
         var googlePayConfiguration = new GooglePayConfiguration();
         var cyberSourceGooglePaySystemKeyword = googlePayConfiguration.PaymentMethodSystemName;
@@ -157,6 +158,6 @@
 <script src="~/Scripts/cyberSource-utilities.js"></script>
 
 
-@Html.Partial("_CyberSourceCreditCardCheckout", creditCardConfiguration)
+@Html.Partial("_CyberSourceCreditCardCheckout", Model)
 @Html.Partial("_CyberSourceGooglePayCheckout", googlePayConfiguration)
 @Html.Partial("_CyberSourceApplePayCheckout")

@@ -1,12 +1,11 @@
 ﻿using EPiServer.Commerce.Order;
 using EPiServer.Reference.Commerce.Site.Features.Cart.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.Pages;
-using EPiServer.Reference.Commerce.Site.Features.Payment.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Models;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
+using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels
 {
@@ -77,5 +76,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels
         /// Gets or sets the payment redirect url.
         /// </summary>
         public string RedirectUrl { get; set; }
+
+        public ICreditCardConfiguration CreditCardConfiguration { get; set; }
     }
 }
