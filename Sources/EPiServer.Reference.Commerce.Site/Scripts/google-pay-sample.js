@@ -165,6 +165,9 @@ function addGooglePayButton() {
     const paymentsClient = getGooglePaymentsClient();
     const button =
         paymentsClient.createButton({ onClick: onGooglePaymentButtonClicked });
+    if (!isCyberSourcePaymentMethodSelected("CyberSourceGooglePay")) {
+        button.style.visibility = 'hidden';
+    }
     console.log('addGooglePayButton');
     document.getElementById('submit-area').appendChild(button);
 }

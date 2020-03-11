@@ -14,7 +14,7 @@
         document.getElementById("placeOrder").style.visibility = 'hidden';
         var googlePayButton = document.getElementsByClassName("gpay-button");
         if (googlePayButton.length > 0) {
-            googlePayButton[0].style.visibility = 'hidden';
+            googlePayButton[0].style.visibility = 'visible';
         }
     }
 
