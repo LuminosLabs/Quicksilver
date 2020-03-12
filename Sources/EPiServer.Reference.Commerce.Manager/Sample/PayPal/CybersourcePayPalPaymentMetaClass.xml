@@ -1,0 +1,114 @@
+﻿<MetaDataPlusBackup version="1.0">
+  <MetaClass>
+    <Namespace>Mediachase.Commerce.Orders.System</Namespace>
+    <Name>OrderFormPayment</Name>
+    <FriendlyName>Order Form Payment</FriendlyName>
+    <MetaClassType>System</MetaClassType>
+    <ParentClass></ParentClass>
+    <TableName>OrderFormPayment</TableName>
+    <Description>OrderFormPayment Class</Description>
+    <IsSystem>True</IsSystem>
+    <IsAbstract>False</IsAbstract>
+    <FieldListChangedSqlScript></FieldListChangedSqlScript>
+    <Tag></Tag>
+    <Attributes></Attributes>
+  </MetaClass>
+  <MetaClass>
+    <Namespace>Mediachase.Commerce.Orders.User</Namespace>
+    <Name>CyberSourcePayPalPayment</Name>
+    <FriendlyName>CyberSource PayPal Payment</FriendlyName>
+    <MetaClassType>User</MetaClassType>
+    <ParentClass>OrderFormPayment</ParentClass>
+    <TableName>OrderFormPaymentEx_CyberSourcePayPalPayment</TableName>
+    <Description>Information used by CyberSource PayPal types of payment</Description>
+    <IsSystem>False</IsSystem>
+    <IsAbstract>False</IsAbstract>
+    <FieldListChangedSqlScript></FieldListChangedSqlScript>
+    <Tag></Tag>
+    <Attributes></Attributes>
+  </MetaClass>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourceRequestId</Name>
+    <FriendlyName>CyberSource Request Id</FriendlyName>
+    <Description>CyberSource Request Id</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourcePayPalPayerId</Name>
+    <FriendlyName>CyberSource PayPal PayerId</FriendlyName>
+    <Description>CyberSource PayPal PayerId of the customer</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourcePayPalSuccessUrl</Name>
+    <FriendlyName>CyberSource PayPal Success Url</FriendlyName>
+    <Description>CyberSource PayPal Success Url</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourcePayPalCancelUrl</Name>
+    <FriendlyName>CyberSource PayPal Cancel Url</FriendlyName>
+    <Description>CyberSource PayPal Cancel Url</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+</MetaDataPlusBackup>
