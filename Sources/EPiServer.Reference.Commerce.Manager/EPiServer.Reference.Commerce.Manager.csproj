@@ -279,14 +279,6 @@
     <Content Include="Default.aspx" />
     <Content Include="EPiServerDefault.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Sample\ApplePay\ConfigurePayment.ascx" />
-    <Content Include="Sample\ApplePay\CybersourceApplePayPaymentMetaClass.xml" />
-    <Content Include="Sample\CreditCard\ConfigurePayment.ascx" />
-    <Content Include="Sample\CreditCard\CybersourceCreditCardPaymentMetaClass.xml" />
-    <Content Include="Sample\GooglePay\ConfigurePayment.ascx" />
-    <Content Include="Sample\GooglePay\CybersourceGooglePayPaymentMetaClass.xml" />
-    <Content Include="Sample\PayPal\ConfigurePayment.ascx" />
-    <Content Include="Sample\PayPal\CybersourcePayPalPaymentMetaClass.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -294,34 +286,6 @@
   <ItemGroup>
     <Compile Include="..\AssemblyVersionAuto.cs">
       <Link>AssemblyVersionAuto.cs</Link>
-    </Compile>
-    <Compile Include="Sample\ApplePay\ConfigurePayment.ascx.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sample\ApplePay\ConfigurePayment.ascx.designer.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Sample\CreditCard\ConfigurePayment.ascx.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sample\CreditCard\ConfigurePayment.ascx.designer.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Sample\GooglePay\ConfigurePayment.ascx.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sample\GooglePay\ConfigurePayment.ascx.designer.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Sample\PayPal\ConfigurePayment.ascx.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sample\PayPal\ConfigurePayment.ascx.designer.cs">
-      <DependentUpon>ConfigurePayment.ascx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="IRIConfigurationModule.cs" />
