@@ -62,7 +62,7 @@ Commerce Manager Setup
 Credit Card
 -----------
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from this sample EPiServer.Reference.Commerce.Manager\Sample\CreditCard to the Apps\Order\Payments\Plugins\CyberSourceCreditCard folder. If the CyberSourceCreditCard folder does not exist, create it.
+2. Deploy the **ConfigurePayment.ascx** file from root this repository in Commerce Manager\CreditCard to the Apps\Order\Payments\Plugins\CyberSourceCreditCard folder. If the CyberSourceCreditCard folder does not exist, create it.
 
 Setting up the Credit Card payment provider in Commerce Manager
 ----------------------------------------------------------
@@ -94,7 +94,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 PayPal
 -----------
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from this sample EPiServer.Reference.Commerce.Manager\Sample\PayPal to the Apps\Order\Payments\Plugins\CyberSourcePayPal folder. If the CyberSourcePayPal folder does not exist, create it.
+2. Deploy the **ConfigurePayment.ascx** file from this repository in Commerce Manager\PayPal to the Apps\Order\Payments\Plugins\CyberSourcePayPal folder. If the CyberSourcePayPal folder does not exist, create it.
 
 Setting up the PayPal payment provider in Commerce Manager
 ----------------------------------------------------------
@@ -121,7 +121,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 Google Pay
 -----------
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from this sample EPiServer.Reference.Commerce.Manager\Sample\GooglePay to the Apps\Order\Payments\Plugins\CyberSourceGooglePay folder. If the CyberSourceGooglePay folder does not exist, create it.
+2. Deploy the **ConfigurePayment.ascx** file from this repository in Commerce Manager\GooglePay to the Apps\Order\Payments\Plugins\CyberSourceGooglePay folder. If the CyberSourceGooglePay folder does not exist, create it.
 
 Setting up the Google Pay payment provider in Commerce Manager
 ----------------------------------------------------------
@@ -146,7 +146,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 Apple Pay
 -----------
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from this sample EPiServer.Reference.Commerce.Manager\Sample\ApplePay to the Apps\Order\Payments\Plugins\CyberSourceApplePay folder. If the CyberSourceApplePay folder does not exist, create it.
+2. Deploy the **ConfigurePayment.ascx** file from this repository in Commerce Manager\ApplePay to the Apps\Order\Payments\Plugins\CyberSourceApplePay folder. If the CyberSourceApplePay folder does not exist, create it.
 
 Setting up the Apple Pay payment provider in Commerce Manager
 ----------------------------------------------------------
@@ -157,11 +157,11 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 	- For **System keyword**, select CyberSourceApplePay, the name of the folder created during deployment.
 	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Payments.ApplePay.CyberSourceApplePayGateway**
 	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Payments.ApplePay.CyberSourceApplePayPayment**
-    - For **Apple Pay Merchant Id**, 
-    - For **Certificate Thumbprint Key**,
-    - For **Initiative Context**, 
-    - For **Display Name in Payment Sheet**, 
-3. Click **OK** to save the CyberSourceApplePay payment method.
+    - For **Apple Pay Merchant Id**, id of the merchant as generated in the apple developer portal
+    - For **Certificate Thumbprint Key**, the Thumbprint Key of the Merchant certificate seen after generated from Apple Developer portal
+    - For **Initiative Context**, website address of the apple pay integration
+    - For **Display Name in Payment Sheet**, name of the company that will receive the money, this will be displayed in Apple Pay payment sheet
+3. Click **OK** to save the **CyberSourceApplePay** payment method.
 4. Open the **CyberSourceApplePay** payment method for additional editing.
 5. Go to the **Parameter** tab and enter the following:
 	- **Merchant Id** - the Merchant Id of the CyberSource account
