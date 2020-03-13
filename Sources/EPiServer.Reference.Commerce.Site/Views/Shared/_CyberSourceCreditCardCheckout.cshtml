@@ -92,7 +92,7 @@
                 country: country,
                 postalCode: postalCode,
                 cardType: cardType,
-                cardNumber: cardNumber,
+                cardNumber: cardNumber.replace(/\s/g, ''),
                 cardExpireYear: cardExpireYear,
                 cardExpireMonth: cardExpireMonth,
                 signFieldsUrl: "/SecureAcceptance/SignFields",
