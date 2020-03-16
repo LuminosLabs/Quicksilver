@@ -193,7 +193,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return new EmptyResult();
         }
 
-        [HttpPost]
         [AllowDBWrite]
         public ActionResult PlaceOrder()
         {
