@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using EPiServer.Reference.Commerce.Site.Features.AddressBook.Services;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.ServiceLocation;
 using LL.EpiserverCyberSourceConnector.Payments;
@@ -41,6 +42,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         private readonly CheckoutService _checkoutService;
         private readonly IDatabaseMode _databaseMode;
         private readonly SecureAcceptanceSecurity _secureAcceptanceSecurity;
+        private readonly IAddressBookService _addressBookService;
 
         public CheckoutController(
             ICurrencyService currencyService,
@@ -53,7 +55,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             CheckoutService checkoutService,
             OrderValidationService orderValidationService,
             IDatabaseMode databaseMode,
-            SecureAcceptanceSecurity secureAcceptanceSecurity)
+            SecureAcceptanceSecurity secureAcceptanceSecurity,
+            IAddressBookService addressBookService)
         {
             _currencyService = currencyService;
             _controllerExceptionHandler = controllerExceptionHandler;
@@ -66,6 +69,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             _orderValidationService = orderValidationService;
             _databaseMode = databaseMode;
             _secureAcceptanceSecurity = secureAcceptanceSecurity;
+            _addressBookService = addressBookService;
         }
 
         [HttpGet]
@@ -135,6 +139,15 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return PartialView(addressViewName, viewModel);
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult GetSelectedBillingAddress(string addressId)
+        {
+            var customerAddresses = _addressBookService.List();
+
+            return Json(new { address = customerAddresses.FirstOrDefault(x => x.AddressId == addressId) });
+        }
+
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult OrderSummary()
         {
@@ -194,6 +207,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         }
 
         [AllowDBWrite]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult PlaceOrder()
         {
             var payment = Cart.GetFirstForm().Payments.FirstOrDefault();

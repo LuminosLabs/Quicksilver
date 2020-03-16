@@ -17,6 +17,7 @@
         var cardTypes = @Html.Raw(Json.Encode(cardTypeDictionary));
         var countryCodes = @Html.Raw(Json.Encode(countryCodes));
         var states = @Html.Raw(Json.Encode(states));
+        var isUserAuthenticated = "@User.Identity.IsAuthenticated" === "True";
 
         var processCreditCardSubmit = function(event) {
             event.preventDefault();
@@ -40,6 +41,61 @@
         }
 
         function signFields() {
+            var address = {};
+
+            if (!isUserAuthenticated) {
+
+                address.firstName = document.getElementById("BillingAddress_FirstName").value;
+                address.lastName = document.getElementById("BillingAddress_LastName").value;
+                address.email = document.getElementById("BillingAddress_Email").value;
+                address.addressLine1 = document.getElementById("BillingAddress_Line1").value;
+                address.city = document.getElementById("BillingAddress_City").value;
+                address.postalCode = document.getElementById("BillingAddress_PostalCode").value;
+
+                var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
+                var stateValue = stateField.options[stateField.selectedIndex].text;
+                address.state = states[stateValue];
+
+                var countryField = document.getElementById("BillingAddress_CountryCode");
+                var countryValue = countryField.options[countryField.selectedIndex].value;
+                address.country = countryCodes[countryValue];
+
+                sign(createDataObject(address));
+            } else {
+                var addressField = document.getElementById("BillingAddress_AddressId");
+                var addressId = addressField.options[addressField.selectedIndex].value;
+
+                $.ajax({
+                    url: '/Checkout/GetSelectedBillingAddress',
+                    method: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        'addressId': addressId
+                    })
+                }).then(function (result) {
+                    if (result) {
+                        var customerAddress = result.address;
+                        address.firstName = customerAddress.FirstName;
+                        address.lastName = customerAddress.LastName;
+                        address.email = customerAddress.Email;
+                        address.addressLine1 = customerAddress.Line1;
+                        address.city = customerAddress.City;
+                        address.postalCode = customerAddress.PostalCode;
+                        address.country = countryCodes[customerAddress.CountryCode];
+                        address.state = states[customerAddress.CountryRegion.Region];
+
+                        sign(createDataObject(address));
+                    } else {
+                            console.log("Address not found for the customer");
+                        }
+                    },
+                    function (error) {
+                        console.log("Error in GetSelectedBillingAddress", error);
+                    });
+            }
+        }
+
+        function createDataObject(address) {
             var accessKey = "@Model.CreditCardConfiguration.AccessKey";
             var profileId = "@Model.CreditCardConfiguration.ProfileId";
             var transactionType = "@Model.CreditCardConfiguration.SecureAcceptanceTransactionType";
@@ -50,29 +106,13 @@
             var locale = languageField.options[languageField.selectedIndex].value;
             var amountValue = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent;
 
-            // TODO: change for logged in users
-            var firstName =document.getElementById("BillingAddress_FirstName").value;
-            var lastName = document.getElementById("BillingAddress_LastName").value;
-            var email = document.getElementById("BillingAddress_Email").value;
-            var addressLine1 = document.getElementById("BillingAddress_Line1").value;
-            var city = document.getElementById("BillingAddress_City").value;
-            var postalCode = document.getElementById("BillingAddress_PostalCode").value;
-
-            var stateField = document.getElementById("BillingAddress_CountryRegion_Region");
-            var stateValue = stateField.options[stateField.selectedIndex].text;
-            var state = states[stateValue];
-
-            var countryField = document.getElementById("BillingAddress_CountryCode");
-            var countryValue = countryField.options[countryField.selectedIndex].value;
-            var country = countryCodes[countryValue];
-
             var cardNumber = document.getElementById("credit-card-number").value;
             var cardTypeName = getCardType(cardNumber);
             var cardType = cardTypes[cardTypeName];
             var cardExpireMonth = document.getElementById("credit-card-expiration-month").value;
             var cardExpireYear = document.getElementById("credit-card-expiration-year").value;
 
-            var data = {
+            return {
                 accessKey: accessKey,
                 profileId: profileId,
                 transactionType: transactionType,
@@ -83,14 +123,14 @@
                 currency: currency,
                 locale: locale,
                 amount: amountValue,
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                addressLine1: addressLine1,
-                city: city,
-                state: state,
-                country: country,
-                postalCode: postalCode,
+                firstName: address.firstName,
+                lastName: address.lastName,
+                email: address.email,
+                addressLine1: address.addressLine1,
+                city: address.city,
+                state: address.state,
+                country: address.country,
+                postalCode: address.postalCode,
                 cardType: cardType,
                 cardNumber: cardNumber.replace(/\s/g, ''),
                 cardExpireYear: cardExpireYear,
@@ -98,7 +138,6 @@
                 signFieldsUrl: "/SecureAcceptance/SignFields",
                 secureAcceptanceFormId: "secure-acceptance-form"
             };
-            sign(data);
         }
 </script>
 
