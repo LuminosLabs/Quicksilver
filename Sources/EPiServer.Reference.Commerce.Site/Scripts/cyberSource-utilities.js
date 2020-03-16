@@ -1,12 +1,13 @@
 ﻿window.onload = function () {
     setDefaultValues();
 
-    //hide apple pay option if not on apple devices
+    // hide apple pay option if not on apple devices
     if (!window.canUseApplePay()) {
         window.hidePaymentOption("CyberSourceApplePay");
     }
 
-    if (!getGoogleIsReadyToPayRequest()) {
+    // hide google pay option if client is not ready to pay
+    if (!window.getGoogleIsReadyToPayRequest()) {
         window.hidePaymentOption("CyberSourceGooglePay");
     }
 

@@ -351,6 +351,7 @@
   <ItemGroup>
     <Content Include="lang\Quicksilver_SV.xml" />
     <Content Include="lang\Display_en.xml" />
+    <Content Include="Scripts\apple-pay-sample.js" />
     <Content Include="Scripts\cyberSource-utilities.js" />
     <Content Include="Scripts\google-pay-sample.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />
