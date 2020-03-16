@@ -113,7 +113,7 @@ function getCardType(number) {
         return "Maestro International";
 
     //UATP
-    var re = new RegExp("^1");
+    re = new RegExp("^1");
     if (number.match(re) != null)
         return "UATP";
 
