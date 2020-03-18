@@ -7,7 +7,7 @@
     var signedFieldNames = { "signed_field_names": data.signedFieldNames };
     var unsignedFieldNames = { "unsigned_field_names": data.unsignedFieldNames };
     var locale = { "locale": data.locale };
-    var referenceNumber = { "reference_number": new Date().getTime() };
+    var referenceNumber = { "reference_number": data.referenceNumber };
     var amount = { "amount": data.amount.replace(/\r?\n|\r/, '') };
     var currency = { "currency": data.currency };
     var paymentMethod = { "payment_method": "card" };

@@ -78,5 +78,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels
         public string RedirectUrl { get; set; }
 
         public ICreditCardConfiguration CreditCardConfiguration { get; set; }
+
+        public int OrderId { get; set; }
     }
 }

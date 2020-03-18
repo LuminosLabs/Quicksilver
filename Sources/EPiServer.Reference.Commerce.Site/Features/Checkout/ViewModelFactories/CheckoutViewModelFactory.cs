@@ -69,6 +69,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
                 AvailableAddresses = new List<AddressModel>(),
                 ReferrerUrl = GetReferrerUrl(),
                 Payment = paymentMethod,
+                OrderId = cart.OrderLink.OrderGroupId
             };
 
             var availableAddresses = GetAvailableAddresses();
