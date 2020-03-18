@@ -119,7 +119,9 @@ function addPaymentOnCart(event, session) {
             if (this.status === 200) {
                 // Get the payment data for use to capture funds from
                 // the encrypted Apple Pay token in your server.
-                var paymentDataBase64 = btoa(event.payment.token.paymentData);
+                var paymentDataString = JSON.stringify(event.payment.token.paymentData);
+
+                var paymentDataBase64 = btoa(paymentDataString);
                 var paymentCardType = JSON.stringify(event.payment.token.paymentMethod.network);
 
                 $.ajax({
@@ -154,14 +156,7 @@ function canUseApplePay() {
     if (window.ApplePaySession && window.ApplePaySession.supportsVersion(1)) {
         // The Apple Pay JS API is available.
 
-        var promise = window.ApplePaySession.canMakePayments();
-        promise.then(function (canMakePayments) {
-            if (canMakePayments) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+        return window.ApplePaySession.canMakePayments();
     }
 
     return false;
