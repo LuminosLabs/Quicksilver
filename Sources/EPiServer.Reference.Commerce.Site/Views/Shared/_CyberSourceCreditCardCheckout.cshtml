@@ -102,7 +102,7 @@
             var transactionType = "@Model.CreditCardConfiguration.SecureAcceptanceTransactionType";
             var unsignedFieldNames = "@Model.CreditCardConfiguration.UnsignedFields";
             var signedFieldNames = "@signedFields";
-            var referenceNumber = document.getElementById("orderId").value;
+            var referenceNumber = new Date().getTime();
             var currency = document.getElementById("CurrencyCode").value;
             var languageField = document.getElementById("Language");
             var locale = languageField.options[languageField.selectedIndex].value;

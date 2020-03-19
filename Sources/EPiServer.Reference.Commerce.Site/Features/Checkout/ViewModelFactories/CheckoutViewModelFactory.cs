@@ -68,8 +68,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
                 AppliedCouponCodes = cart.GetFirstForm().CouponCodes.Distinct(),
                 AvailableAddresses = new List<AddressModel>(),
                 ReferrerUrl = GetReferrerUrl(),
-                Payment = paymentMethod,
-                OrderId = cart.OrderLink.OrderGroupId
+                Payment = paymentMethod
             };
 
             var availableAddresses = GetAvailableAddresses();
