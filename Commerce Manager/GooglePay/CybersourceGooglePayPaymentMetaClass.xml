@@ -69,25 +69,4 @@
     </Attributes>
     <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
   </MetaField>
-  <MetaField>
-    <Namespace>Mediachase.Commerce.Orders</Namespace>
-    <Name>CyberSourceGooglePayCardType</Name>
-    <FriendlyName>CyberSource Card Type</FriendlyName>
-    <Description>The Credit Card Type used for Google Pay transaction</Description>
-    <DataType>LongString</DataType>
-    <Length>8000</Length>
-    <AllowNulls>True</AllowNulls>
-    <SaveHistory>False</SaveHistory>
-    <AllowSearch>False</AllowSearch>
-    <MultiLanguageValue>False</MultiLanguageValue>
-    <IsSystem>False</IsSystem>
-    <Tag></Tag>
-    <Attributes>
-      <Attribute>
-        <Key>useincomparing</Key>
-        <Value>False</Value>
-      </Attribute>
-    </Attributes>
-    <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
-  </MetaField>
 </MetaDataPlusBackup>

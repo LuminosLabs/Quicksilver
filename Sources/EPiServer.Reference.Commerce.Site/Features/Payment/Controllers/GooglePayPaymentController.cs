@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using EPiServer.Commerce.Order;
+﻿using EPiServer.Commerce.Order;
 using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
-using EPiServer.Reference.Commerce.Site.Features.Checkout.Services;
-using LL.EpiserverCyberSourceConnector;
 using LL.EpiserverCyberSourceConnector.Payments.GooglePay;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Payment.Controllers
 {
@@ -15,30 +13,25 @@ namespace EPiServer.Reference.Commerce.Site.Features.Payment.Controllers
         private readonly IOrderRepository _orderRepository;
         private ICart Cart => _cart ?? (_cart = _cartService.LoadCart(_cartService.DefaultCartName));
 
-        public GooglePayPaymentController(ICartService cartService, IOrderRepository orderRepository, CheckoutService checkoutService)
+        public GooglePayPaymentController(ICartService cartService, IOrderRepository orderRepository)
         {
             _cartService = cartService;
             _orderRepository = orderRepository;
         }
 
         [HttpPost]
-        public ActionResult ProcessGooglePayPayment(string paymentData, string paymentCardType)
+        public ActionResult ProcessGooglePayPayment(string paymentData)
         {
-            if (string.IsNullOrEmpty(paymentData) || string.IsNullOrEmpty(paymentCardType))
+            if (string.IsNullOrEmpty(paymentData))
             {
                 return Json(false);
             }
 
             var payment = Cart.GetFirstForm().Payments.FirstOrDefault();
-            var googlePayPayment = (ICyberSourceGooglePayPayment) payment;
+            var googlePayPayment = (ICyberSourceGooglePayPayment)payment;
             if (googlePayPayment != null)
             {
                 googlePayPayment.CyberSourceGooglePayData = paymentData;
-
-                if (GooglePayCreditCardTypeStore.CardTypes.ContainsKey(paymentCardType))
-                {
-                    googlePayPayment.CyberSourceGooglePayCardType = GooglePayCreditCardTypeStore.CardTypes[paymentCardType];
-                }
 
                 _orderRepository.Save(Cart);
                 return Json(true);

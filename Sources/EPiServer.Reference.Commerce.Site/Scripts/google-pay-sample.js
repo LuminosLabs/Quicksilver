@@ -233,13 +233,12 @@ function onGooglePaymentButtonClicked() {
     */
 function processPayment(paymentData) {
     // pass payment token to your gateway to process payment
-    var cardType = paymentData.paymentMethodData.info.cardNetwork;
     var paymentDataBase64 = btoa(paymentData.paymentMethodData.tokenizationData.token);
 
-    AddPaymentOnCart(paymentDataBase64, cardType);
+    AddPaymentOnCart(paymentDataBase64);
 }
 
-function AddPaymentOnCart(paymentDataBase64, paymentCardType) {
+function AddPaymentOnCart(paymentDataBase64) {
     var action = '/Checkout/AddPaymentOnCart';
     var formData = new FormData(form);
     var xhr = new XMLHttpRequest();
@@ -258,8 +257,7 @@ function AddPaymentOnCart(paymentDataBase64, paymentCardType) {
                     method: "POST",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
-                        'paymentData': paymentDataBase64,
-                        'paymentCardType': paymentCardType
+                        'paymentData': paymentDataBase64
                     })
                 }).then(function (result) {
                     if (result) {
