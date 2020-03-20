@@ -19,6 +19,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using LL.EpiserverCyberSourceConnector.Payments;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 {
@@ -106,8 +107,17 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 
             var total = cart.GetTotal(_orderGroupCalculator);
             var payment = viewModel.Payment.CreatePayment(total.Amount, cart);
-            cart.AddPayment(payment, _orderGroupFactory);
             payment.BillingAddress = _addressBookService.ConvertToAddress(viewModel.BillingAddress, cart);
+            var cyberSourcePayment = payment as IBaseCyberSourcePayment;
+            if (cyberSourcePayment != null)
+            {
+                cyberSourcePayment.CyberSourceDeviceFingerprintId = viewModel.CyberSourceDeviceFingerprintId;
+                cart.AddPayment(cyberSourcePayment, _orderGroupFactory);
+            }
+            else
+            {
+                cart.AddPayment(payment, _orderGroupFactory);
+            }
 
             _orderRepository.Save(cart);
         }

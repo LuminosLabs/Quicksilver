@@ -6,8 +6,6 @@ using EPiServer.Reference.Commerce.Site.Features.Cart.ViewModelFactories;
 using EPiServer.Reference.Commerce.Site.Features.Cart.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.Pages;
 using EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels;
-using EPiServer.Reference.Commerce.Site.Features.Payment.ViewModelFactories;
-using EPiServer.Reference.Commerce.Site.Features.Payment.ViewModels;
 using EPiServer.Reference.Commerce.Site.Features.Shared.Models;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.ServiceLocation;
@@ -53,10 +51,10 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
             }
 
             var currentShippingAddressId = cart.GetFirstShipment()?.ShippingAddress?.Id;
-            var currentBillingAdressId = cart.GetFirstForm().Payments.FirstOrDefault()?.BillingAddress?.Id;
+            var currentBillingAddressId = cart.GetFirstForm().Payments.FirstOrDefault()?.BillingAddress?.Id;
 
             var shipments = _shipmentViewModelFactory.CreateShipmentsViewModel(cart).ToList();
-            var useBillingAddressForShipment = shipments.Count == 1 && currentBillingAdressId == currentShippingAddressId && _addressBookService.UseBillingAddressForShipment();
+            var useBillingAddressForShipment = shipments.Count == 1 && currentBillingAddressId == currentShippingAddressId && _addressBookService.UseBillingAddressForShipment();
 
             var viewModel = new CheckoutViewModel
             {
@@ -68,7 +66,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
                 AppliedCouponCodes = cart.GetFirstForm().CouponCodes.Distinct(),
                 AvailableAddresses = new List<AddressModel>(),
                 ReferrerUrl = GetReferrerUrl(),
-                Payment = paymentMethod
+                Payment = paymentMethod,
+                CyberSourceDeviceFingerprintId = $"{Guid.NewGuid().ToString()}"
             };
 
             var availableAddresses = GetAvailableAddresses();
