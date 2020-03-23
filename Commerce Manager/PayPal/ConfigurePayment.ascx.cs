@@ -60,6 +60,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.PayPal
 
                 UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, MerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
+                UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
                 UpdateOrCreateParameter(PayPalConfiguration.SuccessUrlParameter, SuccessUrl, paymentMethodId);
                 UpdateOrCreateParameter(PayPalConfiguration.CancelUrlParameter, CancelUrl, paymentMethodId);
             }
@@ -74,6 +75,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.PayPal
             {
                 BindParameterData(BaseConfiguration.MerchantIdParameter, MerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
+                BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
                 BindParameterData(PayPalConfiguration.SuccessUrlParameter, SuccessUrl);
                 BindParameterData(PayPalConfiguration.CancelUrlParameter, CancelUrl);
             }

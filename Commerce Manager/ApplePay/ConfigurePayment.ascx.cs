@@ -3,6 +3,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using LL.EpiserverCyberSourceConnector.Payments;
 using LL.EpiserverCyberSourceConnector.Payments.ApplePay;
+using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
 using Mediachase.Commerce.Orders.Dto;
 using Mediachase.Web.Console.Interfaces;
 
@@ -60,7 +61,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.ApplePay
 
                 UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, CybersourceMerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
-                
+                UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
                 UpdateOrCreateParameter(ApplePayConfiguration.ApplePayMerchantIdParameter, ApplepayMerchantId, paymentMethodId);
                 UpdateOrCreateParameter(ApplePayConfiguration.ApplePayMerchantCertificateThumbprintParameter, CertificateThumbprintKey, paymentMethodId);
                 UpdateOrCreateParameter(ApplePayConfiguration.ApplePayInitiativeContextParameter, initiativeContext, paymentMethodId);
@@ -77,7 +78,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.ApplePay
             {
                 BindParameterData(BaseConfiguration.MerchantIdParameter, CybersourceMerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
-
+                BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
                 BindParameterData(ApplePayConfiguration.ApplePayMerchantIdParameter, ApplepayMerchantId);
                 BindParameterData(ApplePayConfiguration.ApplePayMerchantCertificateThumbprintParameter, CertificateThumbprintKey);
                 BindParameterData(ApplePayConfiguration.ApplePayInitiativeContextParameter, initiativeContext);

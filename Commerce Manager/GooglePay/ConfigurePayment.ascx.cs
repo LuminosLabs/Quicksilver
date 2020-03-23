@@ -60,6 +60,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.GooglePay
 
                 UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, MerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
+                UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
             }
         }
 
@@ -72,6 +73,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.GooglePay
             {
                 BindParameterData(BaseConfiguration.MerchantIdParameter, MerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
+                BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
             }
             else
             {

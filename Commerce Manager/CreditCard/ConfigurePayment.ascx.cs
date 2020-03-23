@@ -60,7 +60,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.CreditCard
 
                 UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, MerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
-                UpdateOrCreateParameter(CreditCardConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
+                UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
                 UpdateOrCreateParameter(CreditCardConfiguration.SecretKeyParameter, SecretKey, paymentMethodId);
                 UpdateOrCreateParameter(CreditCardConfiguration.AccessKeyParameter, AccessKey, paymentMethodId);
                 UpdateOrCreateParameter(CreditCardConfiguration.ProfileIdParameter, ProfileId, paymentMethodId);
@@ -79,7 +79,7 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.CreditCard
             {
                 BindParameterData(BaseConfiguration.MerchantIdParameter, MerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
-                BindParameterData(CreditCardConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
+                BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
                 BindParameterData(CreditCardConfiguration.SecretKeyParameter, SecretKey);
                 BindParameterData(CreditCardConfiguration.AccessKeyParameter, AccessKey);
                 BindParameterData(CreditCardConfiguration.ProfileIdParameter, ProfileId);

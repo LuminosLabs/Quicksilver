@@ -35,5 +35,16 @@
         <tr>
             <td colspan="2" class="FormSpacerCell"></td>
         </tr>
+        <tr>
+            <td class="FormLabelCell">
+                <asp:Literal ID="CheckBoxDecisionManagerEnabledLiteral" runat="server" Text="Decision Manager Enabled" />:
+            </td>
+            <td class="FormFieldCell">
+                <asp:CheckBox ID="CheckBoxDecisionManagerEnabled" runat="server" Checked="false" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="FormSpacerCell"></td>
+        </tr>
     </table>
 </div>

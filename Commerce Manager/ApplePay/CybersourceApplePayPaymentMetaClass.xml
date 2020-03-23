@@ -50,6 +50,27 @@
   </MetaField>
   <MetaField>
     <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourceDeviceFingerprintId</Name>
+    <FriendlyName>CyberSource DeviceFingerprint Id</FriendlyName>
+    <Description>Unique Device Fingerprint Id sent for device fingerprinting</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourceApplePayPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
     <Name>CyberSourceApplePayData</Name>
     <FriendlyName>CyberSource ApplePay Data</FriendlyName>
     <Description>CyberSource ApplePay Data</Description>

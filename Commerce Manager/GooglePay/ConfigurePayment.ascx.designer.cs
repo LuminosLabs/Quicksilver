@@ -67,5 +67,23 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.GooglePay
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownListTransactionType;
+
+        /// <summary>
+        /// CheckBoxDecisionManagerEnabledLiteral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal CheckBoxDecisionManagerEnabledLiteral;
+
+        /// <summary>
+        /// CheckBoxDecisionManagerEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxDecisionManagerEnabled;
     }
 }
