@@ -222,6 +222,8 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
                 return View(viewModel);
             }
 
+            AddDecisionManagerInformation(payment);
+
             string redirectUrl;
             var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, out redirectUrl);
 
@@ -311,42 +313,61 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         // CyberSource Connector added code
         private bool ConfigureCreditCardProperties(IPayment payment)
         {
-            if (payment != null && payment.PaymentMethodName == "CyberSourceCreditCard")
+            var cyberSourcePayment = payment as ICyberSourceCreditCardPayment;
+
+            if (cyberSourcePayment == null) return true;
+
+            if (!IsSignatureChecked())
             {
-                if (!IsSignatureChecked())
-                {
-                    ModelState.AddModelError("SignatureCheck", "Secure Acceptance Signature check fail. Please try again.");
+                ModelState.AddModelError("SignatureCheck", "Secure Acceptance Signature check fail. Please try again.");
 
-                    return false;
-                }
-
-                if (Request.Form["decision"] != "ACCEPT")
-                {
-                    ModelState.AddModelError("SecureAcceptanceResponse",
-                        $"Secure acceptance request failed with message: {Request.Form["message"]}. Invalid fields: {Request.Form["invalid_fields"]}");
-
-                    return false;
-                }
-
-                var token = Request.Form["payment_token"];
-                var requestId = Request.Form["transaction_id"];
-                payment.Properties[CommerceMetaFields.CyberSourceTokenPropertyName] = token;
-                payment.Properties[CommerceMetaFields.CyberSourceRequestIdPropertyName] = requestId;
-
-                var decisionInformation = new DecisionManagerInformation
-                {
-                    CustomerIpAddress = Request.UserHostAddress,
-                    IsHttpBrowserCookiesAccepted = true,
-                    CustomerId = User.Identity.GetUserId(),
-                    HttpBrowserType = Request.UserAgent,
-                    HostName = Request.UserHostName
-                };
-
-                var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);
-                payment.Properties[CommerceMetaFields.DecisionManagerInformationPropertyName] = decisionManagerJson;
+                return false;
             }
 
+            if (Request.Form["decision"] != "ACCEPT")
+            {
+                ModelState.AddModelError("SecureAcceptanceResponse",
+                    $"Secure acceptance request failed with Message: {Request.Form["message"]}. Invalid fields: {Request.Form["invalid_fields"]}");
+
+                return false;
+            }
+
+            cyberSourcePayment.CyberSourceToken = Request.Form["payment_token"];
+            cyberSourcePayment.CyberSourceRequestId = Request.Form["transaction_id"];
+
             return true;
+        }
+
+        private bool IsSignatureChecked()
+        {
+            var parameters = new Dictionary<string, string>();
+            foreach (var key in Request.Form.AllKeys)
+            {
+                parameters.Add(key, Request.Params[key]);
+            }
+            var computedSignature = _secureAcceptanceSecurity.Sign(parameters);
+            var requestSignatureValue = Request.Form["signature"];
+
+            return computedSignature == requestSignatureValue;
+        }
+
+        private void AddDecisionManagerInformation(IPayment payment)
+        {
+            var cyberSourcePayment = payment as IBaseCyberSourcePayment;
+
+            if (cyberSourcePayment == null) return;
+
+            var decisionInformation = new DecisionManagerInformation
+            {
+                CustomerIpAddress = Request.UserHostAddress,
+                IsHttpBrowserCookiesAccepted = true,
+                CustomerId = User.Identity.GetUserId(),
+                HttpBrowserType = Request.UserAgent,
+                HostName = Request.UserHostName
+            };
+
+            var decisionManagerJson = JsonConvert.SerializeObject(decisionInformation);
+            cyberSourcePayment.DecisionManagerInformation = decisionManagerJson;
         }
 
         private ViewResult View(CheckoutViewModel checkoutViewModel)
@@ -365,19 +386,6 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
         private bool CartIsNullOrEmpty()
         {
             return Cart == null || !Cart.GetAllLineItems().Any();
-        }
-
-        private bool IsSignatureChecked()
-        {
-            var parameters = new Dictionary<string, string>();
-            foreach (var key in Request.Form.AllKeys)
-            {
-                parameters.Add(key, Request.Params[key]);
-            }
-            var computedSignature = _secureAcceptanceSecurity.Sign(parameters);
-            var requestSignatureValue = Request.Form["signature"];
-
-            return computedSignature == requestSignatureValue;
         }
     }
 }

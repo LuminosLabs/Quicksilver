@@ -24,33 +24,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.PayPal
         protected global::System.Web.UI.WebControls.Literal TitleLiteral;
 
         /// <summary>
-        /// MerchantIdLiteral control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal MerchantIdLiteral;
-
-        /// <summary>
-        /// MerchantId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MerchantId;
-
-        /// <summary>
-        /// Requiredfieldvalidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
-
-        /// <summary>
         /// DropDownListTransactionTypeLiteral control.
         /// </summary>
         /// <remarks>

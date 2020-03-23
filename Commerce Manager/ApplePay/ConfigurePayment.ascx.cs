@@ -59,7 +59,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.ApplePay
                     paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
                 }
 
-                UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, CybersourceMerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
                 UpdateOrCreateParameter(ApplePayConfiguration.ApplePayMerchantIdParameter, ApplepayMerchantId, paymentMethodId);
@@ -76,7 +75,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.ApplePay
         {
             if (_paymentMethodDto?.PaymentMethodParameter != null)
             {
-                BindParameterData(BaseConfiguration.MerchantIdParameter, CybersourceMerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
                 BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
                 BindParameterData(ApplePayConfiguration.ApplePayMerchantIdParameter, ApplepayMerchantId);

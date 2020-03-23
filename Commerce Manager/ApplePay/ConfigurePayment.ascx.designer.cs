@@ -24,33 +24,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.ApplePay
         protected global::System.Web.UI.WebControls.Literal TitleLiteral;
 
         /// <summary>
-        /// CybersourceMerchantIdLiteral control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal CybersourceMerchantIdLiteral;
-
-        /// <summary>
-        /// CybersourceMerchantId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CybersourceMerchantId;
-
-        /// <summary>
-        /// Requiredfieldvalidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
-
-        /// <summary>
         /// DropDownListTransactionTypeLiteral control.
         /// </summary>
         /// <remarks>

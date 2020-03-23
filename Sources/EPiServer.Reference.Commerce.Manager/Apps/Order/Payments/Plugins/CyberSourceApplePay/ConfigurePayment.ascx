@@ -9,20 +9,6 @@
     </table>
     <br />
     <table class="DataForm">
-        <%--Cybersource Merchant Id--%>
-        <tr>
-            <td class="FormLabelCell">
-                <asp:Literal ID="CybersourceMerchantIdLiteral" runat="server" Text="Cybersource Merchant Id" />:</td>
-            <td class="FormFieldCell">
-                <asp:TextBox runat="server" ID="CybersourceMerchantId" Width="300px" MaxLength="250"></asp:TextBox><br />
-                <asp:RequiredFieldValidator ControlToValidate="CybersourceMerchantId" Display="dynamic" Font-Name="verdana" Font-Size="9pt"
-                    ErrorMessage="Cybersource Merchant Id required" runat="server" ID="Requiredfieldvalidator2">
-                </asp:RequiredFieldValidator>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="FormSpacerCell"></td>
-        </tr>
         <%--Transaction Type--%>
         <tr>
             <td class="FormLabelCell">

@@ -58,7 +58,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.CreditCard
                     paymentMethodId = _paymentMethodDto.PaymentMethod[0].PaymentMethodId;
                 }
 
-                UpdateOrCreateParameter(BaseConfiguration.MerchantIdParameter, MerchantId, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType, paymentMethodId);
                 UpdateOrCreateParameter(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled, paymentMethodId);
                 UpdateOrCreateParameter(CreditCardConfiguration.SecretKeyParameter, SecretKey, paymentMethodId);
@@ -77,7 +76,6 @@ namespace LL.EpiserverCyberSourceConnector.CommerceManager.CreditCard
         {
             if (_paymentMethodDto?.PaymentMethodParameter != null)
             {
-                BindParameterData(BaseConfiguration.MerchantIdParameter, MerchantId);
                 BindParameterData(BaseConfiguration.TransactionTypeParameter, DropDownListTransactionType);
                 BindParameterData(BaseConfiguration.DecisionManagerIsEnabledParameter, CheckBoxDecisionManagerEnabled);
                 BindParameterData(CreditCardConfiguration.SecretKeyParameter, SecretKey);
