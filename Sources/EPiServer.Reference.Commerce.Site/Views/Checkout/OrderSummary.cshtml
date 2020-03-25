@@ -8,7 +8,7 @@
         <tbody>
             <tr>
                 <td><h4>@Html.Translate("/Checkout/SubTotal")</h4></td>
-                <td class="total-price"><h4 class="pull-right">@Helpers.RenderMoney(Model.SubTotal)</h4></td>
+                <td class="total-price"><h4 class="pull-right">@Helpers.RenderMoney(Model.SubTotal, "sub-total")</h4></td>
             </tr>
             <tr>
                 <td>
@@ -22,7 +22,7 @@
                     @foreach (var discount in Model.OrderDiscounts)
                     {
                         <span>- </span>
-                        @Helpers.RenderMoney(discount.Discount)<br />
+                        @Helpers.RenderMoney(discount.Discount, "order-discount")<br />
                     }
                 </td>
             </tr>
@@ -38,13 +38,13 @@
                     <h4>@Helpers.RenderMoney(Model.ShippingTaxTotal)</h4>
                     @Helpers.RenderMoney(Model.ShippingSubtotal)<br />
                     - @Helpers.RenderMoney(Model.ShippingDiscountTotal)<br />
-                    @Helpers.RenderMoney(Model.ShippingTotal)<br />
-                    @Helpers.RenderMoney(Model.TaxTotal)
+                    @Helpers.RenderMoney(Model.ShippingTotal, "shipping-total")<br />
+                    @Helpers.RenderMoney(Model.TaxTotal, "tax-total")
                 </td>
             </tr>
             <tr>
                 <td><h4>@Html.Translate("/Checkout/CartTotal")</h4></td>
-                <td id="total-price" class="total-price"><h4 class="pull-right">@Helpers.RenderMoney(Model.CartTotal)</h4></td>
+                <td class="total-price"><h4 class="pull-right">@Helpers.RenderMoney(Model.CartTotal, "total-price")</h4></td>
             </tr>
         </tbody>
     </table>

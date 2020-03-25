@@ -106,7 +106,7 @@
             var currency = document.getElementById("CurrencyCode").value;
             var languageField = document.getElementById("Language");
             var locale = languageField.options[languageField.selectedIndex].value;
-            var amountValue = document.querySelector("#total-price .product-price__currency-marker").nextSibling.textContent;
+            var amountValue = formatPrice(document.getElementById("total-price").nextSibling.textContent);
 
             var cardNumber = document.getElementById("credit-card-number").value;
             var cardTypeName = getCardType(cardNumber);

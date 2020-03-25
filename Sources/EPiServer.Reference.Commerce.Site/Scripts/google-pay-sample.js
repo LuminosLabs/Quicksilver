@@ -179,14 +179,14 @@ function addGooglePayButton() {
 function getGoogleTransactionInfo() {
     var currencyCode = document.getElementById("CurrencyCode");
     var countryCode = document.getElementById("MarketId");
-    var totalPrice = document.querySelector("#total-price .product-price__currency-marker").nextSibling;
+    var totalPrice = formatPrice(document.getElementById("total-price").nextSibling.textContent);
 
     return {
         countryCode: countryCode.options[countryCode.selectedIndex].value,
         currencyCode: currencyCode.options[currencyCode.selectedIndex].value,
         totalPriceStatus: 'FINAL',
         // set to cart total
-        totalPrice: totalPrice.textContent.trim()
+        totalPrice: totalPrice
     };
 }
 
