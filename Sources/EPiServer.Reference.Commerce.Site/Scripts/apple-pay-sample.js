@@ -6,7 +6,8 @@
 function placeApplePayOrder() {
 
     var subTotal = formatPrice(document.getElementById("sub-total").nextSibling.textContent);
-    var orderDiscount = formatPrice(document.getElementById("order-discount").nextSibling.textContent);
+    var orderDiscountElement = document.getElementById("order-discount");
+    var orderDiscount = orderDiscountElement ? "-" + formatPrice(orderDiscountElement.nextSibling.textContent) : "-0.00";
     var shippingTotal = formatPrice(document.getElementById("shipping-total").nextSibling.textContent);
     var taxTotal = formatPrice(document.getElementById("tax-total").nextSibling.textContent);
     var totalPrice = formatPrice(document.getElementById("total-price").nextSibling.textContent);
