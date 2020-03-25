@@ -168,7 +168,7 @@
     var orgId = ConfigurationManager.AppSettings["cybs.orgId"];
     var cyberSourceMerchantId = ConfigurationManager.AppSettings["cybs.merchantId"];
 }
-@if (!string.IsNullOrEmpty(orgId))
+@if (!string.IsNullOrEmpty(orgId) && orgId != "CHANGE-THIS")
 {
     @section Header {
         <script type="text/javascript"
