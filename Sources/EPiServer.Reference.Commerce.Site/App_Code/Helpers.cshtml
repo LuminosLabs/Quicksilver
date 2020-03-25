@@ -44,7 +44,7 @@
     {
         var currencyService = ServiceLocator.Current.GetInstance<ICurrencyService>();
         var currencyCultureMappings = new Dictionary<string, string>
-        {
+    {
             { "AUD", "en-AU"},
             { "BRL", "pt-BR"},
             { "CAD", "en-CA"},
@@ -102,11 +102,12 @@
     @Helpers.RenderMoney(money);
 }
 
-@helper RenderMoney(Money money)
+@helper RenderMoney(Money money, string id = null)
 {
-<span>
-    @page.Html.Raw(money.ToString().Replace(money.Currency.Format.CurrencySymbol, @"<span class=""product-price__currency-marker"">" + money.Currency.Format.CurrencySymbol + "</span>"))
-</span>
+    var span = @"<span id=""" + id + @""" class=""product-price__currency-marker"">";
+    <span>
+        @page.Html.Raw(money.ToString().Replace(money.Currency.Format.CurrencySymbol, span + money.Currency.Format.CurrencySymbol + "</span>"))
+    </span>
 }
 
 @helper RenderSize(EntryContentBase content)
@@ -124,9 +125,9 @@
     var variant = cartItem.Entry as FashionVariant;
     if (variant != null && variant.Size != null)
     {
-    <span>
-        @page.Html.Hidden("size", variant.Size.Trim())
-        @page.Html.DropDownList("newSize", new SelectList(cartItem.AvailableSizes, variant.Size), new { @class = "form-control cart-control jsChangeCartItem" })
-    </span>
+        <span>
+            @page.Html.Hidden("size", variant.Size.Trim())
+            @page.Html.DropDownList("newSize", new SelectList(cartItem.AvailableSizes, variant.Size), new { @class = "form-control cart-control jsChangeCartItem" })
+        </span>
     }
 }

@@ -5,31 +5,42 @@
 
 function placeApplePayOrder() {
 
+    var subTotal = formatPrice(document.getElementById("sub-total").nextSibling.textContent);
+    var orderDiscount = formatPrice(document.getElementById("order-discount").nextSibling.textContent);
+    var shippingTotal = formatPrice(document.getElementById("shipping-total").nextSibling.textContent);
+    var taxTotal = formatPrice(document.getElementById("tax-total").nextSibling.textContent);
+    var totalPrice = formatPrice(document.getElementById("total-price").nextSibling.textContent);
+
     var request = {
         countryCode: 'US',
         currencyCode: 'USD',
         supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
         merchantCapabilities: ['supports3DS'],
         total: {
-            label: 'Luminos Labs',
-            amount: '10.00',
-            type: 'final'
+            label: 'Total',
+            type: 'final',
+            amount: totalPrice
         },
         lineItems: [
             {
-                label: 'Bag Subtotal',
+                label: 'Subtotal',
                 type: 'final',
-                amount: '35.00'
+                amount: subTotal
             },
             {
-                label: 'Free Shipping',
-                amount: '0.00',
-                type: 'final'
+                label: 'Order Discount',
+                type: 'final',
+                amount: orderDiscount
             },
             {
-                label: 'Estimated Tax',
-                amount: '3.06',
-                type: 'final'
+                label: 'Shipping Total',
+                type: 'final',
+                amount: shippingTotal
+            },
+            {
+                label: 'Tax Total',
+                type: 'final',
+                amount: taxTotal
             }
         ]
     }

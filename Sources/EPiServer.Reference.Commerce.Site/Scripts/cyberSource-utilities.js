@@ -119,3 +119,7 @@ function getCardType(number) {
 
     return "";
 }
+
+function formatPrice(price) {
+    return price.trim().replace(/[,↵ ]/, '');
+}
