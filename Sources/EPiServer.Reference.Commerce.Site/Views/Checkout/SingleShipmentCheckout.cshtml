@@ -91,6 +91,7 @@
         </div>
     }
 
+    @* CyberSource Connector code changes *@
     <form class="jsCheckoutForm" action="@Url.Action("Purchase", "Checkout")" method="post" novalidate data-updateurl="@Url.Action("Update", null, null)">
 
         <h2>@Html.Translate("/Checkout/Payment/Heading")</h2>
@@ -180,3 +181,4 @@
                 src="https://h.online-metrix.net/fp/tags?org_id=@orgId&session_id=@cyberSourceMerchantId@Model.CyberSourceDeviceFingerprintId"></iframe>
     </noscript>
 }
+@* end CyberSource Connector code changes *@

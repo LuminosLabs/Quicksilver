@@ -115,6 +115,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModelFactories
             return addresses;
         }
 
+        // CyberSource Connector code changes
         public CheckoutViewModel CreateEmptyCheckoutViewModel(CheckoutPage currentPage)
         {
             return new CheckoutViewModel

@@ -139,6 +139,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return PartialView(addressViewName, viewModel);
         }
 
+        // CyberSource Connector code changes
         [HttpPost]
         [Authorize]
         public ActionResult GetSelectedBillingAddress(string addressId)
@@ -177,6 +178,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return View(viewModel.ViewName, viewModel);
         }
 
+        // CyberSource Connector code changes
         [HttpPost]
         [AllowDBWrite]
         public ActionResult AddPaymentOnCart(CheckoutViewModel viewModel, IPaymentMethod paymentMethod)
@@ -206,6 +208,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return new EmptyResult();
         }
 
+        // CyberSource Connector code changes
         [AllowDBWrite]
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult PlaceOrder()
@@ -244,6 +247,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return Redirect(_checkoutService.BuildRedirectionUrl(purchaseOrder, billingEmail, confirmationSentSuccessfully));
         }
 
+        // CyberSource Connector code changes
         [HttpPost]
         public ActionResult Purchase(CheckoutViewModel viewModel, IPaymentMethod paymentMethod)
         {
@@ -338,6 +342,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return true;
         }
 
+        // CyberSource Connector code changes
         private bool IsSignatureChecked()
         {
             var parameters = new Dictionary<string, string>();
@@ -351,6 +356,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             return computedSignature == requestSignatureValue;
         }
 
+        // CyberSource Connector code changes
         private void AddDecisionManagerInformation(IPayment payment)
         {
             var cyberSourcePayment = payment as IBaseCyberSourcePayment;

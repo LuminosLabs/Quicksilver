@@ -44,7 +44,7 @@
     {
         var currencyService = ServiceLocator.Current.GetInstance<ICurrencyService>();
         var currencyCultureMappings = new Dictionary<string, string>
-    {
+{
             { "AUD", "en-AU"},
             { "BRL", "pt-BR"},
             { "CAD", "en-CA"},
@@ -102,6 +102,7 @@
     @Helpers.RenderMoney(money);
 }
 
+@* CyberSource Connector code changes *@
 @helper RenderMoney(Money money, string id = null)
 {
     var span = @"<span id=""" + id + @""" class=""product-price__currency-marker"">";

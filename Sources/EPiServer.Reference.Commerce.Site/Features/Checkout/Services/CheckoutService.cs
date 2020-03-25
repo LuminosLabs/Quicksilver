@@ -97,6 +97,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             }
         }
 
+        // CyberSource Connector code changes
         public virtual void CreateAndAddPaymentToCart(ICart cart, CheckoutViewModel viewModel)
         {
             // Clean up payments in cart on payment provider site.
@@ -243,9 +244,9 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             return validation.ValidateModel(modelState, viewModel) && validation.ValidateOrderOperation(modelState, validationMessages);
         }
 
-        public void ProcessPaymentCancel(CheckoutViewModel viewModel, TempDataDictionary tempData, ControllerContext controlerContext)
+        public void ProcessPaymentCancel(CheckoutViewModel viewModel, TempDataDictionary tempData, ControllerContext controllerContext)
         {
-            var message = tempData["message"]?.ToString() ?? controlerContext.HttpContext.Request.QueryString["message"];
+            var message = tempData["message"]?.ToString() ?? controllerContext.HttpContext.Request.QueryString["message"];
             if (!string.IsNullOrEmpty(message))
             {
                 viewModel.Message = message;

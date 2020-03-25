@@ -68,10 +68,10 @@ On the site change the following settings in web.config appSettings:
 **Note:** **LL.EpiserverCyberSourceConnector** must be installed on the front-end site and on the Commerce Manager site. The above settings will be added to the Commerce Manager web.config as well. We removed them from Commerce Manager site in sample. We advise you to remove them from the web.config in the Commerce Manager website.
 
 
-Commerce Manager Setup
+Credit Card
 ======================
 
-Credit Card
+Commerce Manager Setup
 -----------
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager\CreditCard to the Apps\Order\Payments\Plugins\CyberSourceCreditCard folder. If the CyberSourceCreditCard folder does not exist, create it.
@@ -102,8 +102,34 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\CreditCard\CybersourceCreditCardPaymentMetaClass.xml.
 10. Select the CybersourceCreditCardPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
+Setting up the Credit Card payment provider on the front-end site
+-----------------------------------------------------------------
+Below is a list of files that were added or modified from the default Quicksilver solution. Please look out for comments `//CyberSource Connector Code Changes` that highlighted the changed areas.
+
+1. Views:
+    - Added: 
+      - Shared\ _CyberSourceCreditCard.cshtml, _CyberSourceCreditCardCheckout.cshtml, _CyberSourceCreditCardConfirmation.cshtml
+      - App_Code\Helpers.cshtml
+    - Modified: 
+      - Views\Checkout\SingleShipmentCheckout.cshtml, OrderSummary.cshtml
+2. Scripts:
+    - Added: Scripts\cybersSource-utilities.js, secure-acceptance-sample.js
+3. Controllers:
+    - Added: Features\Payment\Controllers\SecureAcceptanceController.cs
+    - Modified: Features\Checkout\Controllers\CheckoutController.cs
+4. Other back-end files that were modified: CheckoutService.cs, CheckoutViewModelFactory.cs
+
+Credit Card Components
+----------------------
+
+Credit Card implementation features two CyberSource APIs:
+1. **Secure Acceptance API** 
+   - This API is used to generate a payment token in CyberSource without the sensitive credit card data hitting the back-end.
+2. **Simple Order API** 
+   - This API is used for Authorization / Authorization + Capture (Sale) of the payment in CyberSource. The code for making Simple Order API requests resides in the LL.EpiserverCyberSourceConnector NuGet. 
+
 PayPal
------------
+======
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager\PayPal to the Apps\Order\Payments\Plugins\CyberSourcePayPal folder. If the CyberSourcePayPal folder does not exist, create it.
 
@@ -129,8 +155,27 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\PayPal\CybersourcePayPalPaymentMetaClass.xml.
 10. Select the CybersourcePayPalPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
+Setting up the PayPal payment provider on the front-end site
+-----------------------------------------------------------------
+Below is a list of files that were added or modified from the default Quicksilver solution. Please look out for comments `//CyberSource Connector Code Changes` that highlighted the changed areas.
+
+1. Views:
+    - Added: 
+      - Shared\ _CyberSourcePayPal.cshtml, _CyberSourcePayPalConfirmation.cshtml
+      - App_Code\Helpers.cshtml
+    - Modified: 
+      - Views\Checkout\SingleShipmentCheckout.cshtml, OrderSummary.cshtml
+2. Scripts:
+    - Added: Scripts\cybersSource-utilities.js
+3. Controllers:
+    - Added: Features\Payment\Controllers\PayPalPaymentController.cs
+    - Modified: Features\Checkout\Controllers\CheckoutController.cs
+4. Other back-end files that were modified: CheckoutService.cs, CheckoutViewModelFactory.cs
+
+
+
 Google Pay
------------
+==========
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in in Commerce Manager\GooglePay to the Apps\Order\Payments\Plugins\CyberSourceGooglePay folder. If the CyberSourceGooglePay folder does not exist, create it.
 
@@ -154,8 +199,27 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\GooglePay\CyberSourceGooglePayPaymentMetaClass.xml.
 10. Select the CybersourceGooglePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
+Setting up the Google Pay payment provider on the front-end site
+-----------------------------------------------------------------
+Below is a list of files that were added or modified from the default Quicksilver solution. Please look out for comments `//CyberSource Connector Code Changes` that highlighted the changed areas.
+
+1. Views:
+    - Added: 
+      - Shared\ _CyberSourceGooglePayCheckout.cshtml, _CyberSourceGooglePayConfirmation.cshtml, _CyberSourceGooglePay.cshtml
+      - App_Code\Helpers.cshtml
+    - Modified: 
+      - Views\Checkout\SingleShipmentCheckout.cshtml, OrderSummary.cshtml
+2. Scripts:
+    - Added: Scripts\cybersSource-utilities.js, google-pay-sample.js
+3. Controllers:
+    - Added: Features\Payment\Controllers\GooglePayPaymentController.cs
+    - Modified: Features\Checkout\Controllers\CheckoutController.cs
+4. Other back-end files that were modified: CheckoutService.cs, CheckoutViewModelFactory.cs
+
+
+
 Apple Pay
------------
+=========
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager\ApplePay to the Apps\Order\Payments\Plugins\CyberSourceApplePay folder. If the CyberSourceApplePay folder does not exist, create it.
 
@@ -182,4 +246,28 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 8. Click **Import/Export**, select **Import MetaData**.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\GooglePay\CyberSourceApplePayPaymentMetaClass.xml.
 10. Select the CybersourceApplePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
+
+
+Setting up the Google Pay payment provider on the front-end site
+-----------------------------------------------------------------
+Below is a list of files that were added or modified from the default Quicksilver solution. Please look out for comments `//CyberSource Connector Code Changes` that highlighted the changed areas.
+
+1. Views:
+    - Added: 
+      - Shared\  _CyberSourceApplePayCheckout.cshtml, _CyberSourceApplePayConfirmation.cshtml, _CyberSourceApplePay.cshtml
+      - App_Code\Helpers.cshtml
+    - Modified: 
+      - Views\Checkout\SingleShipmentCheckout.cshtml, OrderSummary.cshtml
+2. Scripts:
+    - Added: Scripts\cybersSource-utilities.js, google-pay-sample.js
+3. Styles:
+    - Added: Styles\ApplePayStyling.css
+4. Controllers:
+    - Added: Features\Payment\Controllers\ApplePayPaymentController.cs
+    - Modified: Features\Checkout\Controllers\CheckoutController.cs
+5. Models:
+   - Added: Features\Payment\Models\ MerchantSessionRequest.cs, ValidateMerchantSessionModel.cs
+6. Services: 
+   - Added: Features\Payment\Services folder: CertificateService.cs
+7. Other back-end files that were modified: Features\Checkout\Service\CheckoutService.cs, Features\Checkout\ViewModelFactories\CheckoutViewModelFactory.cs
 
