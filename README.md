@@ -6,7 +6,7 @@ This repository is a fork from official EpiServer Quicksilver repository (https:
 
 This repository serves as an Episerver CyberSource Connector Reference Implementation of the **LL.EpiserverCyberSourceConnector NuGet** with all the front-end and back-end files for the available payment methods.
 
-In the current version, the following payment methods are available: **Credit Card, PayPal, Google Pay, and Apple Pay**.
+Available payment methods in the current version: **Credit Card, PayPal, Google Pay, and Apple Pay**.
 
 ***Support for Serialized Carts is not supported in the current version of LL.EpiserverCyberSourceConnector NuGet***
 
