@@ -26,13 +26,14 @@ On the site change the following settings in web.config appSettings:
 
 **Note:** The above settings can be ignored/removed on the Commerce Manager project because they are not used.
 
+--- 
 
-## Commerce Manager configuration
-
+Commerce Manager configuration
+------------------------------
 Based on the required payment method please refer to the corresponding configuration section.
 
-### Credit Card
----
+### 1. Credit Card
+
 #### Commerce Manager
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\CreditCard to the Apps\Order\Payments\Plugins\CyberSourceCreditCard folder. If the CyberSourceCreditCard folder does not exist, create it.
@@ -64,8 +65,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 10. Select the CybersourceCreditCardPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
-### PayPal
----
+### 2. PayPal
+
 #### Commerce Manager
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\PayPal to the Apps\Order\Payments\Plugins\CyberSourcePayPal folder. If the CyberSourcePayPal folder does not exist, create it.
@@ -93,8 +94,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 10. Select the CybersourcePayPalPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
-### Google Pay
----
+### 3. Google Pay
+
 #### Commerce Manager
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\GooglePay to the Apps\Order\Payments\Plugins\CyberSourceGooglePay folder. If the CyberSourceGooglePay folder does not exist, create it.
@@ -118,8 +119,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager CyberSource Extensions\GooglePay\CyberSourceGooglePayPaymentMetaClass.xml.
 10. Select the CybersourceGooglePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
-### Apple Pay
----
+### 4. Apple Pay
+
 #### Commerce Manager
 1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
 2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\ApplePay to the Apps\Order\Payments\Plugins\CyberSourceApplePay folder. If the CyberSourceApplePay folder does not exist, create it.
@@ -147,8 +148,10 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\GooglePay\CyberSourceApplePayPaymentMetaClass.xml.
 10. Select the CybersourceApplePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
+---
 
-## Front-end site reference implementation
+Front-end site reference implementation
+---------------------------------------
 
 Note that this is a reference implementation and it can be used as a starting point for your project. This reference implementation is based on the Quicksilver project template
 
@@ -172,8 +175,8 @@ Below is a list of files that were modified or added from the official EpiServer
       - Features\Checkout\ViewModelFactories\CheckoutViewModelFactory.cs
 
 
-### Credit Card 
----
+### 1. Credit Card 
+
 
 #### Prerequisites
 
@@ -202,8 +205,7 @@ Credit Card implementation features two CyberSource APIs:
    - For more details refer to the official CyberSource Credit Card Simple Order API documentation 
 
 
-### Pay Pal 
----
+### 2. Pay Pal 
 
 #### Prerequisites
 
@@ -219,8 +221,7 @@ The following files were added:
     - Features\Payment\Controllers\PayPalPaymentController.cs
 
 
-### Google pay 
---- 
+### 3. Google pay 
 
 #### Prerequisites
 
@@ -237,8 +238,7 @@ The following files were added:
 3. Controllers:
     - Features\Payment\Controllers\GooglePayPaymentController.cs
 
-### Apple Pay
----
+###  4. Apple Pay
 
 #### Prerequisites
 
