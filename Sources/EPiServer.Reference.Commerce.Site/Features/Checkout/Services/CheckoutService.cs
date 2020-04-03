@@ -19,7 +19,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
-using LL.EpiserverCyberSourceConnector.Payments;
+using LL.EpiserverCyberSourceConnector.Core.Payments;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
 {

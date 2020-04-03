@@ -34,20 +34,6 @@
         <tr>
             <td colspan="2" class="FormSpacerCell"></td>
         </tr>
-        <%-- ApplePay Merchant Id--%>
-        <tr>
-            <td class="FormLabelCell">
-                <asp:Literal ID="ApplePayMerchantIdLiteral" runat="server" Text="Apple Pay Merchant Id" />:</td>
-            <td class="FormFieldCell">
-                <asp:TextBox runat="server" ID="ApplepayMerchantId" Width="300px" MaxLength="250"></asp:TextBox><br />
-                <asp:RequiredFieldValidator ControlToValidate="ApplepayMerchantId" Display="dynamic" Font-Name="verdana" Font-Size="9pt"
-                                            ErrorMessage="Apple Pay Merchant Id required" runat="server" ID="Requiredfieldvalidator1">
-                </asp:RequiredFieldValidator>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="FormSpacerCell"></td>
-        </tr>
         <%--Cetificate Thubprint--%>
         <tr>
             <td class="FormLabelCell">

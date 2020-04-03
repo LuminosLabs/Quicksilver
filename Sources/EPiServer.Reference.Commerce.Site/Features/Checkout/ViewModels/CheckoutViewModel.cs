@@ -5,7 +5,7 @@ using EPiServer.Reference.Commerce.Site.Features.Shared.Models;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
+using LL.EpiserverCyberSourceConnector.Core.Payments.CreditCard;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels
 {

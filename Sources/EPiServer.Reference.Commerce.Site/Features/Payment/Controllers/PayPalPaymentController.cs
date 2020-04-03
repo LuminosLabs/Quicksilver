@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using EPiServer.Commerce.Order;
 using EPiServer.Editor;
 using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
-using LL.EpiserverCyberSourceConnector.Payments.PayPal;
+using LL.EpiserverCyberSourceConnector.Core.Payments.PayPal;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Payment.Controllers
 {

@@ -1,8 +1,8 @@
 ﻿using EPiServer.Commerce.Order;
 using EPiServer.Reference.Commerce.Site.Features.Cart.Services;
-using LL.EpiserverCyberSourceConnector.Payments.GooglePay;
 using System.Linq;
 using System.Web.Mvc;
+using LL.EpiserverCyberSourceConnector.Core.Payments.GooglePay;
 
 namespace EPiServer.Reference.Commerce.Site.Features.Payment.Controllers
 {

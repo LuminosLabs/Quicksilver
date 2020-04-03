@@ -21,9 +21,10 @@ using System.Web.Mvc;
 using EPiServer.Reference.Commerce.Site.Features.AddressBook.Services;
 using EPiServer.Reference.Commerce.Site.Features.Start.Pages;
 using EPiServer.ServiceLocation;
-using LL.EpiserverCyberSourceConnector.Models;
-using LL.EpiserverCyberSourceConnector.Payments;
-using LL.EpiserverCyberSourceConnector.Payments.CreditCard;
+using LL.EpiserverCyberSourceConnector.Core.Models;
+using LL.EpiserverCyberSourceConnector.Core.Payments;
+using LL.EpiserverCyberSourceConnector.Core.Payments.CreditCard;
+using LL.EpiserverCyberSourceConnector.Site.Payments.CreditCard;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 
