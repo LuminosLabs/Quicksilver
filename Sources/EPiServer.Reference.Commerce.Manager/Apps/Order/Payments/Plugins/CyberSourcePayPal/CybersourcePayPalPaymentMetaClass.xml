@@ -15,12 +15,12 @@
   </MetaClass>
   <MetaClass>
     <Namespace>Mediachase.Commerce.Orders.User</Namespace>
-    <Name>CyberSourceGooglePayPayment</Name>
-    <FriendlyName>CyberSource Google Pay Payment</FriendlyName>
+    <Name>CyberSourcePayPalPayment</Name>
+    <FriendlyName>CyberSource PayPal Payment</FriendlyName>
     <MetaClassType>User</MetaClassType>
     <ParentClass>OrderFormPayment</ParentClass>
-    <TableName>OrderFormPaymentEx_CyberSourceGooglePayPayment</TableName>
-    <Description>Information used by CyberSource Google pay types of payment</Description>
+    <TableName>OrderFormPaymentEx_CyberSourcePayPalPayment</TableName>
+    <Description>Information used by CyberSource PayPal types of payment</Description>
     <IsSystem>False</IsSystem>
     <IsAbstract>False</IsAbstract>
     <FieldListChangedSqlScript></FieldListChangedSqlScript>
@@ -46,7 +46,7 @@
         <Value>False</Value>
       </Attribute>
     </Attributes>
-    <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
   </MetaField>
   <MetaField>
     <Namespace>Mediachase.Commerce.Orders</Namespace>
@@ -67,7 +67,7 @@
         <Value>False</Value>
       </Attribute>
     </Attributes>
-    <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
   </MetaField>
   <MetaField>
     <Namespace>Mediachase.Commerce.Orders</Namespace>
@@ -88,15 +88,15 @@
         <Value>False</Value>
       </Attribute>
     </Attributes>
-    <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
   </MetaField>
   <MetaField>
     <Namespace>Mediachase.Commerce.Orders</Namespace>
-    <Name>CyberSourceGooglePayData</Name>
-    <FriendlyName>CyberSource Google Pay Data</FriendlyName>
-    <Description>CyberSource Google Pay Data</Description>
-    <DataType>LongString</DataType>
-    <Length>8000</Length>
+    <Name>CyberSourcePayPalPayerId</Name>
+    <FriendlyName>CyberSource PayPal PayerId</FriendlyName>
+    <Description>CyberSource PayPal PayerId of the customer</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
     <AllowNulls>True</AllowNulls>
     <SaveHistory>False</SaveHistory>
     <AllowSearch>False</AllowSearch>
@@ -109,6 +109,48 @@
         <Value>False</Value>
       </Attribute>
     </Attributes>
-    <OwnerMetaClass>CyberSourceGooglePayPayment</OwnerMetaClass>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourcePayPalSuccessUrl</Name>
+    <FriendlyName>CyberSource PayPal Success Url</FriendlyName>
+    <Description>CyberSource PayPal Success Url</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
+  </MetaField>
+  <MetaField>
+    <Namespace>Mediachase.Commerce.Orders</Namespace>
+    <Name>CyberSourcePayPalCancelUrl</Name>
+    <FriendlyName>CyberSource PayPal Cancel Url</FriendlyName>
+    <Description>CyberSource PayPal Cancel Url</Description>
+    <DataType>ShortString</DataType>
+    <Length>512</Length>
+    <AllowNulls>True</AllowNulls>
+    <SaveHistory>False</SaveHistory>
+    <AllowSearch>False</AllowSearch>
+    <MultiLanguageValue>False</MultiLanguageValue>
+    <IsSystem>False</IsSystem>
+    <Tag></Tag>
+    <Attributes>
+      <Attribute>
+        <Key>useincomparing</Key>
+        <Value>False</Value>
+      </Attribute>
+    </Attributes>
+    <OwnerMetaClass>CyberSourcePayPalPayment</OwnerMetaClass>
   </MetaField>
 </MetaDataPlusBackup>

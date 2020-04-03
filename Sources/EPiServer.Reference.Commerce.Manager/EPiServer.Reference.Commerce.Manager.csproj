@@ -2088,7 +2088,7 @@
     <Content Include="Apps\Order\Payments\Plugins\CyberSourceGooglePay\ConfigurePayment.ascx" />
     <Content Include="Apps\Order\Payments\Plugins\CyberSourceGooglePay\CybersourceGooglePayPaymentMetaClass.xml" />
     <Content Include="Apps\Order\Payments\Plugins\CyberSourcePayPal\ConfigurePayment.ascx" />
-    <Content Include="Apps\Order\Payments\Plugins\CyberSourcePayPal\CybersourceGooglePayPaymentMetaClass.xml" />
+    <Content Include="Apps\Order\Payments\Plugins\CyberSourcePayPal\CybersourcePayPalPaymentMetaClass.xml" />
     <Content Include="Apps\Order\Payments\Plugins\Generic\ConfigurePayment.ascx" />
     <Content Include="Apps\Order\Payments\Tabs\PaymentMethodEditBaseTab.ascx" />
     <Content Include="Apps\Order\Payments\Tabs\PaymentMethodEditMarkets.ascx" />

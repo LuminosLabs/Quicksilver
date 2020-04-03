@@ -1,7 +1,7 @@
 ﻿@model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
 @using EPiServer.Reference.Commerce.Site.Features.AddressBook.Helpers
-@using LL.EpiserverCyberSourceConnector
-@using LL.EpiserverCyberSourceConnector.Payments.CreditCard
+@using LL.EpiserverCyberSourceConnector.Site
+@using LL.EpiserverCyberSourceConnector.Site.Payments.CreditCard
 
 @* Secure Acceptance form. This form will be submitted from front-end. In this way the Credit Card data will not hit the back-end. *@
 <form action="https://testsecureacceptance.CyberSource.com/silent/pay" method="post" id="secure-acceptance-form"></form>
