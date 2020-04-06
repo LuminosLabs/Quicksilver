@@ -4,19 +4,19 @@
 
 This repository is a fork from official EpiServer Quicksilver repository (https://github.com/episerver/Quicksilver)
 
-This repository serves as an Episerver CyberSource Connector Reference Implementation of the **LL.EpiserverCyberSourceConnector NuGet** with all the front-end and back-end files for the available payment methods.
+This repository serves as an Episerver CyberSource Connector Reference Implementation of the **LL.EpiserverCyberSourceConnector.Core, LL.EpiserverCyberSourceConnector.Site, LL.EpiserverCyberSourceConnector.CommerceManager NuGet packages** with all the front-end and back-end files for the available payment methods.
 
 Available payment methods in the current version: **Credit Card, PayPal, Google Pay, and Apple Pay**.
 
-***Support for Serialized Carts is not supported in the current version of LL.EpiserverCyberSourceConnector NuGet***
+***Support for Serialized Carts is not supported in the current version of LL.EpiserverCyberSourceConnector.* NuGet packages***
 
 ## Episerver CyberSource Connector Reference Implementation Installation
 
 1. Follow the installation steps from the official EpiServer Quicksilver repository (https://github.com/episerver/Quicksilver)
-2. Configure Visual Studio to add this package source: http://nuget.luminoslabs.com/nuget. This allows LL.EpiserverCyberSourceConnector NuGet package to be downloaded when the solution is built.
+2. Configure Visual Studio to add this package source: http://nuget.luminoslabs.com/nuget. This allows LL.EpiserverCyberSourceConnector.Core, LL.EpiserverCyberSourceConnector.Site, LL.EpiserverCyberSourceConnector.CommerceManager NuGet packages to be downloaded when the solution is built.
 3. Start the site (Debug-Start from Visual studio) and browse to http://localhost:50244 to finish the installation. Login with admin@example.com/store.
 
-#### LL.EpiserverCyberSourceConnector Settings
+#### LL.EpiserverCyberSourceConnector.Site Settings
 
 On the site change the following settings in web.config appSettings:
 - `<add key="cybs.keysDirectory" value="CHANGE-THIS" />` to your path on disk for the CyberSource license key file
@@ -45,8 +45,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 1. Go to **Administration > Order System > Payments > English**. The last option is the language in which you want to make the payment available.
 2. Click **New** to create a new payment method.
 	- For **System keyword**, select **CyberSourceCreditCard**, the name of the folder created during deployment.
-	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Payments.CreditCard.CyberSourceCreditCardGateway**
-	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Payments.CreditCard.CyberSourceCreditCardPayment**
+	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Core.Payments.CreditCard.CyberSourceCreditCardGateway**
+	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Core.Payments.CreditCard.CyberSourceCreditCardPayment**
 3. Click **OK** to save the CyberSourceCreditCard payment method.
 4. Open the **CyberSourceCreditCard** payment method for additional editing.
 5. Go to the **Parameters** tab and enter the following:
@@ -78,8 +78,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 1. Go to **Administration > Order System > Payments > English**. The last option is the language in which you want to make the payment available.
 2. Click **New** to create a new payment method.
 	- For **System keyword**, select CyberSourcePayPal, the name of the folder created during deployment.
-	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Payments.PayPal.CyberSourcePayPalGateway**
-	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Payments.PayPal.CyberSourcePayPalPayment**
+	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Core.Payments.PayPal.CyberSourcePayPalGateway**
+	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Core.Payments.PayPal.CyberSourcePayPalPayment**
 3. Click **OK** to save the CyberSourcePayPal payment method.
 4. Open the **CyberSourcePayPal** payment method for additional editing.
 5. Go to the **Parameters** tab and enter the following:
@@ -106,8 +106,8 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 1. Go to **Administration > Order System > Payments > English**. The last option is the language in which you want to make the payment available.
 2. Click **New** to create a new payment method.
 	- For **System keyword**, select CyberSourceGooglePay, the name of the folder created during deployment.
-	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Payments.GooglePay.CyberSourceGooglePayGateway**
-	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Payments.GooglePay.CyberSourceGooglePayPayment**
+	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Core.Payments.GooglePay.CyberSourceGooglePayGateway**
+	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Core.Payments.GooglePay.CyberSourceGooglePayPayment**
 3. Click **OK** to save the CyberSourceGooglePay payment method.
 4. Open the **CyberSourceGooglePay** payment method for additional editing.
 5. Go to the **Parameters** tab and enter the following:
@@ -131,14 +131,13 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 1. Go to **Administration > Order System > Payments > English**. The last option is the language in which you want to make the payment available.
 2. Click **New** to create a new payment method.
 	- For **System keyword**, select CyberSourceApplePay, the name of the folder created during deployment.
-	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Payments.ApplePay.CyberSourceApplePayGateway**
-	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Payments.ApplePay.CyberSourceApplePayPayment**
+	- For **Class Name**, select **LL.EpiserverCyberSourceConnector.Core.Payments.ApplePay.CyberSourceApplePayGateway**
+	- For **Payment Class**, select **LL.EpiserverCyberSourceConnector.Core.Payments.ApplePay.CyberSourceApplePayPayment**
     3. Click **OK** to save the **CyberSourceApplePay** payment method.
 4. Open the **CyberSourceApplePay** payment method for additional editing.
 5. Go to the **Parameters** tab and enter the following:
     - **Transaction Type** - the payment buyers will perform with CyberSource Apple Pay. The default value is **Authorization**, whereby a payment is authorized only, not yet captured. If you specify **Sale**, the payment is immediately transferred from a buyer's account to the merchant's account
     - **Decision Manager Enabled** - enables Decision Manager(Advanced Fraud Screen). It will take effect only if the Decision Manager is active on the CyberSource account. If Decision Manager is enabled and **orgId** is enabled (see above) Device Fingerprinting fraud check also occurs for **Authorization** and **Sale** transactions. For more information about Device Fingerprinting fraud check the Decision Manager/Documentation/Guides Section in the CyberSource Dashboard.
-    - **Apple Pay Merchant Id**, the id of the merchant as generated in the Apple Developer Portal
     - **Certificate Thumbprint Key**, the Thumbprint Key of the Merchant certificate installed on the server the application is deployed after it is generated from Apple Developer portal
     - **Initiative Context**, the URL address of the front-end site (Quicksilver)
     - **Display Name in Payment Sheet**, name of the company that will receive the money; this will be displayed in Apple Pay payment sheet pop-up on the Apple device
@@ -201,7 +200,7 @@ Credit Card implementation features two CyberSource APIs:
    - This API is used to generate a payment token in CyberSource without the sensitive credit card data hitting the back-end.
    - For more details please refer to the official CyberSource Secure Acceptance API documentation
 2. **Simple Order API** 
-   - This API is used for Authorization / Authorization & Capture (Sale) of the payment in CyberSource. The code for making Simple Order API requests resides in the LL.EpiserverCyberSourceConnector NuGet. 
+   - This API is used for Authorization / Authorization & Capture (Sale) of the payment in CyberSource. The code for making Simple Order API requests resides in the LL.EpiserverCyberSourceConnector.* NuGet packages. 
    - For more details refer to the official CyberSource Credit Card Simple Order API documentation 
 
 
