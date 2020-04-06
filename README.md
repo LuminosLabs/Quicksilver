@@ -28,15 +28,24 @@ On the site change the following settings in web.config appSettings:
 
 --- 
 
+#### LL.EpiserverCyberSourceConnector.CommerceManager
+
+The following files are added on NuGet install on the Commerce Manager Project:
+- Apps\Order\Payments\Plugins\CyberSourceApplePay:
+  - ConfigurePayment.ascx
+  - m
+- Apps\Order\Payments\Plugins\CyberSourceCreditCard:
+  - ConfigurePayment.ascx
+  - m
+- Apps\Order\Payments\Plugins\CyberSourceGooglePay:
+  - ConfigurePayment.ascx
+- Apps\Order\Payments\Plugins\CyberSourcePayPal:
+  - ConfigurePayment.ascx
+
+---
 Commerce Manager configuration
 ------------------------------
 Based on the required payment method please refer to the corresponding configuration section.
-
-### 1. Credit Card
-
-#### Commerce Manager
-1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\CreditCard to the Apps\Order\Payments\Plugins\CyberSourceCreditCard folder. If the CyberSourceCreditCard folder does not exist, create it.
 
 #### Setting up the Credit Card payment provider in Commerce Manager
 
@@ -61,15 +70,11 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager CyberSource Extensions\CreditCard\CybersourceCreditCardPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceCreditCardCybersourceCreditCardPaymentMetaClass.xml.
 10. Select the CybersourceCreditCardPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
 ### 2. PayPal
-
-#### Commerce Manager
-1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\PayPal to the Apps\Order\Payments\Plugins\CyberSourcePayPal folder. If the CyberSourcePayPal folder does not exist, create it.
 
 #### Setting up the PayPal payment provider in Commerce Manager
 
@@ -90,15 +95,11 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager CyberSource Extensions\PayPal\CybersourcePayPalPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project Apps\Order\Payments\Plugins\CyberSourcePayPal\CybersourcePayPalPaymentMetaClass.xml.
 10. Select the CybersourcePayPalPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
 ### 3. Google Pay
-
-#### Commerce Manager
-1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\GooglePay to the Apps\Order\Payments\Plugins\CyberSourceGooglePay folder. If the CyberSourceGooglePay folder does not exist, create it.
 
 #### Setting up the Google Pay payment provider in Commerce Manager
 Open the Episerver Commerce Manager back-end site. Then, follow these steps.
@@ -116,14 +117,10 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager CyberSource Extensions\GooglePay\CyberSourceGooglePayPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceGooglePay\CyberSourceGooglePayPaymentMetaClass.xml.
 10. Select the CybersourceGooglePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 ### 4. Apple Pay
-
-#### Commerce Manager
-1. Find the Commerce Manager Apps folder, located under the Episerver Commerce Manager project folder.
-2. Deploy the **ConfigurePayment.ascx** file from the root of this repository in Commerce Manager CyberSource Extensions\ApplePay to the Apps\Order\Payments\Plugins\CyberSourceApplePay folder. If the CyberSourceApplePay folder does not exist, create it.
 
 #### Setting up the Apple Pay payment provider in Commerce Manager
 Open the Episerver Commerce Manager back-end site. Then, follow these steps.
@@ -144,7 +141,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the root of this repository in Commerce Manager\GooglePay\CyberSourceApplePayPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceApplePay\CyberSourceApplePayPaymentMetaClass.xml.
 10. Select the CybersourceApplePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 ---
@@ -181,7 +178,7 @@ Below is a list of files that were modified or added from the official EpiServer
 
 1. Contact CyberSource Customer Support to set up your CyberSource merchant account
 2. Setup in CyberSource Dashboard https://ebctest.cybersource.com/ a Secure Acceptance Profile
-3. For more details refer to official CyberSource Credit Card Simple Order API and Secure Acceptance API documentation
+3. For more details refer to official CyberSource [Credit Card Simple Order API](https://developer.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO_API/Credit_Cards_SO_API.pdf) and [Secure Acceptance API](https://developer.cybersource.com/library/documentation/dev_guides/Secure_Acceptance_Checkout_API/Secure_Acceptance_Checkout_API.pdf) documentation
 
 #### Setting up the Credit Card payment provider on the front-end site
 
@@ -209,7 +206,7 @@ Credit Card implementation features two CyberSource APIs:
 #### Prerequisites
 
 1. Contact CyberSource Customer Support to set up your CyberSource merchant account
-2. Follow the prerequisites steps from the official CyberSource PayPal Express Checkout Using Alternative Payment Services and Simple Order API documentation
+2. Follow the prerequisites steps from the official [CyberSource PayPal using Alternative Pay documentation](https://developer.cybersource.com/library/documentation/dev_guides/AltPay_PayPal_Express_SO/AltPay_PayPal_Express_SO_API.pdf)
 
 #### Setting up the PayPal payment provider on the front-end site
 
@@ -225,7 +222,7 @@ The following files were added:
 #### Prerequisites
 
 1. Contact CyberSource Customer Support to set up your CyberSource merchant account
-2. Follow the prerequisites steps from the official CyberSource Google Pay Using Simple Order API documentation
+2. Follow the prerequisites steps from the official [CyberSource Google Pay documentation](https://developer.cybersource.com/library/documentation/dev_guides/Google_Pay_SO_API/Google_Pay_SO_API.pdf)
 
 #### Setting up the Google Pay payment provider on the front-end site
 
@@ -242,7 +239,7 @@ The following files were added:
 #### Prerequisites
 
 1. Contact CyberSource Customer Support to set up your CyberSource merchant account
-2. Follow the prerequisites steps from the official CyberSource Apple Pay Using Simple Order API documentation
+2. Follow the prerequisites steps from the official [CyberSource Apple Pay documentation](https://developer.cybersource.com/library/documentation/dev_guides/apple_payments/SO_API/Apple_Pay_SO_API.pdf)
 
 #### Setting up the Apple Pay payment provider on the front-end site
 
