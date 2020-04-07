@@ -8,7 +8,7 @@ This repository serves as an Episerver CyberSource Connector Reference Implement
 
 Available payment methods in the current version: **Credit Card, PayPal, Google Pay, and Apple Pay**.
 
-***Support for Serialized Carts is not supported in the current version of LL.EpiserverCyberSourceConnector.* NuGet packages***
+***Support for Serialized Carts is not supported in the current version of LL.EpiserverCyberSourceConnector.\* NuGet packages***
 
 ## Episerver CyberSource Connector Reference Implementation Installation
 
@@ -31,16 +31,18 @@ On the site change the following settings in web.config appSettings:
 #### LL.EpiserverCyberSourceConnector.CommerceManager
 
 The following files are added on NuGet install on the Commerce Manager Project:
-- Apps\Order\Payments\Plugins\CyberSourceApplePay:
-  - ConfigurePayment.ascx
-  - m
 - Apps\Order\Payments\Plugins\CyberSourceCreditCard:
   - ConfigurePayment.ascx
-  - m
-- Apps\Order\Payments\Plugins\CyberSourceGooglePay:
-  - ConfigurePayment.ascx
+  - CybersourceCreditCardPaymentMetaClass.xml
 - Apps\Order\Payments\Plugins\CyberSourcePayPal:
   - ConfigurePayment.ascx
+  - CybersourcePayPalPaymentMetaClass.xml
+- Apps\Order\Payments\Plugins\CyberSourceGooglePay:
+  - ConfigurePayment.ascx
+  - CybersourceGooglePayPaymentMetaClass.xml
+- Apps\Order\Payments\Plugins\CyberSourceApplePay:
+  - ConfigurePayment.ascx
+  - CybersourceApplePayPaymentMetaClass.xml
 
 ---
 Commerce Manager configuration
@@ -70,7 +72,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceCreditCardCybersourceCreditCardPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project **Apps\Order\Payments\Plugins\CyberSourceCreditCardCybersourceCreditCardPaymentMetaClass.xml**.
 10. Select the CybersourceCreditCardPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
@@ -95,7 +97,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project Apps\Order\Payments\Plugins\CyberSourcePayPal\CybersourcePayPalPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from Commerce Manager project **Apps\Order\Payments\Plugins\CyberSourcePayPal\CybersourcePayPalPaymentMetaClass.xml**.
 10. Select the CybersourcePayPalPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 
@@ -117,7 +119,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceGooglePay\CyberSourceGooglePayPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project **Apps\Order\Payments\Plugins\CyberSourceGooglePay\CyberSourceGooglePayPaymentMetaClass.xml**.
 10. Select the CybersourceGooglePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 ### 4. Apple Pay
@@ -141,7 +143,7 @@ Open the Episerver Commerce Manager back-end site. Then, follow these steps.
 6. Open the **Markets** tab and add the expected markets for this payment.
 7. In Commerce Manager, go to **Administration > Order System > Meta Classes**.
 8. Click **Import/Export**, select **Import MetaData**.
-9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project Apps\Order\Payments\Plugins\CyberSourceApplePay\CyberSourceApplePayPaymentMetaClass.xml.
+9. To populate the MetaData import screen, drag and drop the meta class file to upload, from the Commerce Manager project **Apps\Order\Payments\Plugins\CyberSourceApplePay\CyberSourceApplePayPaymentMetaClass.xml**.
 10. Select the CybersourceApplePayPaymentMetaClass.xml in the MetaData import screen. Click **Start Import**.
 
 ---
