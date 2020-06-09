@@ -134,8 +134,8 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="LL.EpiserverCyberSourceConnector.CommerceManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.CommerceManager.1.0.0\lib\net461\LL.EpiserverCyberSourceConnector.CommerceManager.dll</HintPath>
+    <Reference Include="LL.EpiserverCyberSourceConnector.CommerceManager, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.CommerceManager.1.0.1\lib\net461\LL.EpiserverCyberSourceConnector.CommerceManager.dll</HintPath>
     </Reference>
     <Reference Include="LL.EpiserverCyberSourceConnector.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.Core.1.0.0\lib\net461\LL.EpiserverCyberSourceConnector.Core.dll</HintPath>
@@ -410,8 +410,7 @@
                 File.WriteAllLines(pagePath, lines);
             }
             
-        ]]>
-      </Code>
+        ]]></Code>
           
     </Task>
   </UsingTask>

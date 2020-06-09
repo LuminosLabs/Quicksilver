@@ -259,9 +259,7 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             }
 
             viewModel.Payment = paymentMethod;
-
             viewModel.IsAuthenticated = User.Identity.IsAuthenticated;
-
             _checkoutService.CheckoutAddressHandling.UpdateUserAddresses(viewModel);
 
             if (!_checkoutService.ValidateOrder(ModelState, viewModel, _orderValidationService.ValidateOrder(Cart)))
@@ -275,8 +273,10 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Controllers
             }
 
             _checkoutService.UpdateShippingAddresses(Cart, viewModel);
-
             _checkoutService.CreateAndAddPaymentToCart(Cart, viewModel);
+
+            var payment = Cart.GetFirstForm().Payments.FirstOrDefault();
+            AddDecisionManagerInformation(payment);
 
             string redirectUrl;
             var purchaseOrder = _checkoutService.PlaceOrder(Cart, ModelState, out redirectUrl);

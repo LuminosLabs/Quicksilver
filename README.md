@@ -24,7 +24,7 @@ On the site change the following settings in web.config appSettings:
 - `<add key="cybs.orgId" value="CHANGE-THIS" />` to the Org Id value requested from CyberSource. This value is needed for enabling Device Fingerprinting for Decision Manager fraud check system. Device Fingerprinting data is sent to CyberSource only if this value is populated. 
 - `<add key="cybs.sendToProduction" value="false" />` change this value to **true** when going on production
 
-**Note:** The above settings can be ignored/removed on the Commerce Manager project because they are not used.
+**Note:** The above settings need to be applied to both Web and Commerce Manager projects.
 
 --- 
 
