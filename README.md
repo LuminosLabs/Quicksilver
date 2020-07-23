@@ -161,7 +161,9 @@ Below is a list of files that were modified or added from the official EpiServer
 1. Views: 
     - *Modified:*
       - App_Code\Helpers.cshtml
-      - Views\Checkout\SingleShipmentCheckout.cshtml, OrderSummary.cshtml
+      - Views\Checkout\SingleShipmentCheckout.cshtml
+	  - Views\Checkout\MultiShipmentCheckout.cshtml
+	  - Views\Checkout\OrderSummary.cshtml
 2. Scripts:
     - *Added:* Scripts\cybersSource-utilities.js
 3. Controllers:

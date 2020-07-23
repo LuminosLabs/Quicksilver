@@ -137,8 +137,8 @@
     <Reference Include="LL.EpiserverCyberSourceConnector.CommerceManager, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.CommerceManager.1.0.1\lib\net461\LL.EpiserverCyberSourceConnector.CommerceManager.dll</HintPath>
     </Reference>
-    <Reference Include="LL.EpiserverCyberSourceConnector.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.Core.1.0.0\lib\net461\LL.EpiserverCyberSourceConnector.Core.dll</HintPath>
+    <Reference Include="LL.EpiserverCyberSourceConnector.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LL.EpiserverCyberSourceConnector.Core.1.0.1\lib\net461\LL.EpiserverCyberSourceConnector.Core.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>

@@ -1,3 +1,7 @@
+@using System.Configuration
+@using LL.EpiserverCyberSourceConnector.Core.Payments.ApplePay
+@using LL.EpiserverCyberSourceConnector.Core.Payments.CreditCard
+@using LL.EpiserverCyberSourceConnector.Core.Payments.GooglePay
 @model EPiServer.Reference.Commerce.Site.Features.Checkout.ViewModels.CheckoutViewModel
 @{
     if (Request.IsAjaxRequest())
@@ -35,7 +39,6 @@
                     <div class="alert alert-danger couponcode-errormessage" style="display: none">
                         <p>@Html.Translate("/Checkout/Coupons/CouponCode/ErrorMessage")</p>
                     </div>
-
                     @if (Model.AppliedCouponCodes != null && Model.AppliedCouponCodes.Any())
                     {
                         <div class="col-xs-12">
@@ -168,7 +171,7 @@
                 {
                     foreach (var error in item.Value.Errors)
                     {
-                        <p>@error.ErrorMessage</p>
+                        <pre style="max-width: 1000px;">@error.ErrorMessage</pre>
                     }
                 }
             </div>
@@ -188,8 +191,72 @@
         <div class="row section-box">
             <div class="col-xs-12">
                 @{ Html.RenderAction("OrderSummary"); }
-                <button type="submit" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
+                <div id="submit-area" class="pull-right">
+                    <button type="submit" id="placeOrder" class="btn btn-primary btn--blue pull-right">@Html.Translate("/Checkout/PlaceOrder")</button>
+                </div>
             </div>
         </div>
+
+        @Html.HiddenFor(model => model.CyberSourceDeviceFingerprintId)
     }
 </div>
+
+@* CyberSource Connector code changes *@
+<script>
+    @{
+        var addPaymentOnCartEndpoint = Url.Action("AddPaymentOnCart", "Checkout");
+        var purchaseEndpoint = Url.Action("PlaceOrder", "Checkout");
+
+        var applePayConfiguration = new ApplePayConfiguration();
+        var cyberSourceApplePaySystemKeyword = applePayConfiguration.PaymentMethodSystemName;
+
+        var creditCardConfiguration = new CreditCardConfiguration();
+        var cyberSourceCreditCardSystemKeyword = creditCardConfiguration.PaymentMethodSystemName;
+        Model.CreditCardConfiguration = creditCardConfiguration;
+
+        var googlePayConfiguration = new GooglePayConfiguration();
+        var cyberSourceGooglePaySystemKeyword = googlePayConfiguration.PaymentMethodSystemName;
+    }
+
+    var addPaymentOnCartEndpoint = '@addPaymentOnCartEndpoint';
+    var purchaseEndpoint = '@purchaseEndpoint';
+
+    var form = document.querySelector("form.jsCheckoutForm");
+    form.onsubmit = function (event) {
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceApplePaySystemKeyword")) {
+            processApplePaySubmit(event);
+        }
+
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceCreditCardSystemKeyword")) {
+            processCreditCardSubmit(event);
+        }
+
+        if (isCyberSourcePaymentMethodSelected("@cyberSourceGooglePaySystemKeyword")) {
+            event.preventDefault();
+        }
+    };
+</script>
+
+<script src="~/Scripts/cyberSource-utilities.js"></script>
+
+
+@Html.Partial("_CyberSourceCreditCardCheckout", Model)
+@Html.Partial("_CyberSourceGooglePayCheckout", googlePayConfiguration)
+@Html.Partial("_CyberSourceApplePayCheckout")
+
+@{
+    var orgId = ConfigurationManager.AppSettings["cybs.orgId"];
+    var cyberSourceMerchantId = ConfigurationManager.AppSettings["cybs.merchantId"];
+}
+@if (!string.IsNullOrEmpty(orgId) && orgId != "CHANGE-THIS")
+{
+    @section Header {
+        <script type="text/javascript"
+                src="https://h.online-metrix.net/fp/tags.js?org_id=@orgId&session_id=@cyberSourceMerchantId@Model.CyberSourceDeviceFingerprintId"></script>
+    }
+
+    <noscript>
+        <iframe style="width: 100px; height: 100px; border: 0; position:absolute; top: -5000px;"
+                src="https://h.online-metrix.net/fp/tags?org_id=@orgId&session_id=@cyberSourceMerchantId@Model.CyberSourceDeviceFingerprintId"></iframe>
+    </noscript>
+}

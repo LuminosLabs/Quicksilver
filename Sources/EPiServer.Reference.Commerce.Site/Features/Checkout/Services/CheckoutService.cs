@@ -104,6 +104,10 @@ namespace EPiServer.Reference.Commerce.Site.Features.Checkout.Services
             foreach (var form in cart.Forms)
             {
                 form.Payments.Clear();
+
+                var orderForm = form as OrderForm;
+                if (orderForm != null)
+                    orderForm.BillingAddressId = viewModel.BillingAddress.Name;
             }
 
             var total = cart.GetTotal(_orderGroupCalculator);
