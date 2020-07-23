@@ -328,6 +328,7 @@
     <Content Include="EPiServerFramework.config" />
     <Content Include="EPiServerLog.config" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -337,7 +338,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="modulesbin\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EPiServer.Reference.Commerce.Shared\EPiServer.Reference.Commerce.Shared.csproj">
