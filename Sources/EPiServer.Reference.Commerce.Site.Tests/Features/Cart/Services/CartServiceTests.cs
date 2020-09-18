@@ -20,6 +20,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Pricing;
 using Xunit;
 
@@ -615,7 +616,7 @@ namespace EPiServer.Reference.Commerce.Site.Tests.Features.Cart.Services
             _relationRepositoryMock = new Mock<IRelationRepository>();
             _orderValidationServiceMock =
                 new Mock<OrderValidationService>(null, null, null, null);
-            _referenceConverterMock = new Mock<ReferenceConverter>(new EntryIdentityResolver(synchronizedObjectInstanceCacheMock.Object), new NodeIdentityResolver(synchronizedObjectInstanceCacheMock.Object));
+            _referenceConverterMock = new Mock<ReferenceConverter>(new EntryIdentityResolver(synchronizedObjectInstanceCacheMock.Object, ServiceLocator.Current.GetInstance<CatalogOptions>()), new NodeIdentityResolver(synchronizedObjectInstanceCacheMock.Object, ServiceLocator.Current.GetInstance<CatalogOptions>()));
 
             _orderValidationServiceMock.Setup(x => x.ValidateOrder(It.IsAny<IOrderGroup>()))
                 .Returns(new Dictionary<ILineItem, IList<ValidationIssue>>());
